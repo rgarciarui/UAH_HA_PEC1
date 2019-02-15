@@ -1,0 +1,2311 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{PEC1\_GarciaRuiz\_Ricardo}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    Table of Contents{}
+
+{{1~~}Introducción al dataset Fashion-Mnist}
+
+{{1.1~~}Jugando con la moda MNIST}
+
+{{1.2~~}Entrar en la moda MNIST}
+
+{{2~~}Métodos supervisados}
+
+{{2.1~~}Carga de datos}
+
+{{2.1.1~~}Descripción del conjunto de datos}
+
+{{2.1.2~~}Definición del conjunto de entrenamiento y test}
+
+{{2.1.3~~}Utilización de algoritmo PCA para reducción dimensión del
+dataset}
+
+{{2.2~~}\(k\) vecinos más cercanos}
+
+{{2.2.1~~}Cálculo hiperparámetros óptimos}
+
+{{2.2.2~~}Entrenamiento de un modelo \(k\)-nn}
+
+{{2.2.3~~}La matriz de confusión de PCA}
+
+{{2.3~~}Support Vector Machines}
+
+{{2.3.1~~}Cálculo del valor óptimo de hiperparámetros}
+
+{{2.3.2~~}Modelo SVM}
+
+{{2.3.3~~}La matriz de confusión de SVM}
+
+{{2.4~~}Redes neuronales}
+
+{{2.4.1~~}Número óptimo de neuronas}
+
+{{2.4.2~~}Número óptimo de neuronas (conjunto completo)}
+
+{{2.4.3~~}La matriz de confusión del modelo}
+
+{{2.5~~}Optimización de métricas}
+
+{{2.5.1~~}Nueva función personalizada de coste}
+
+{{2.5.2~~}Aplicación al modelo de la nueva función de coste}
+
+{{3~~}Combinación de clasificadores}
+
+{{3.1~~}Combinación paralela de clasificadores base similares}
+
+{{3.1.1~~}Bagging}
+
+{{3.1.1.1~~}Random forest simple}
+
+{{3.1.1.2~~}Out-of-bag}
+
+{{3.1.1.3~~}Probabilidad por clase}
+
+{{3.1.1.4~~}Importancia de las variables}
+
+{{3.1.1.5~~}Número de clasificadores}
+
+{{3.1.1.6~~}Volumen de datos}
+
+{{3.1.2~~}Boosting}
+
+{{3.2~~}Combinación secuencial de clasificadores base diferentes}
+
+{{3.2.1~~}Stacking}
+
+{{3.2.2~~}Cascading}
+
+{{3.2.2.1~~}Cascading simple}
+
+{{3.2.2.2~~}Cascading con variables adicionales}
+
+    \textless{}img src=``https://biblioteca.uah.es/imgs/logo11.png'',
+align=``left''\textgreater{}
+
+EN26 - HERRAMIENTAS DE ANÁLISIS · PEC1
+
+\begin{verbatim}
+<p style="margin: 0; text-align:right;">ENTORNOS DE ANÁLISIS DE DATOS (PYTHON)  </p>
+\end{verbatim}
+
+2018-2019 · Máster universitario en Ciencia de datos (Data science)
+
+~
+
+\hypertarget{introducciuxf3n-al-dataset-fashion-mnist}{%
+\section{Introducción al dataset
+Fashion-Mnist}\label{introducciuxf3n-al-dataset-fashion-mnist}}
+
+\hypertarget{jugando-con-la-moda-mnist}{%
+\subsection{Jugando con la moda MNIST}\label{jugando-con-la-moda-mnist}}
+
+Recientemente, los investigadores de Zalando, una empresa de comercio
+electrónico, presentaron a Fashion MNIST como un reemplazo directo del
+conjunto de datos original de MNIST. Al igual que MNIST, Fashion MNIST
+consiste en un conjunto de entrenamiento que consiste en 60.000 ejemplos
+pertenecientes a 10 clases diferentes y un conjunto de prueba de 10.000
+ejemplos. Cada ejemplo de entrenamiento es una imagen en escala de
+grises, de tamaño 28x28.
+
+\hypertarget{entrar-en-la-moda-mnist}{%
+\subsection{Entrar en la moda MNIST}\label{entrar-en-la-moda-mnist}}
+
+Al publicar este conjunto de datos, los investigadores de Zalando
+hicieron las siguientes observaciones en MNIST:
+
+MNIST es demasiado fácil. Las redes convolucionales pueden alcanzar el
+99.7\% en MNIST. Los algoritmos clásicos de aprendizaje automático
+también pueden alcanzar el 97\% fácilmente. Echa un vistazo a nuestro
+punto de referencia de lado a lado para Fashion-MNIST vs.~MNIST, y lee
+``La mayoría de los pares de dígitos MNIST se pueden distinguir bastante
+bien con solo un píxel''.
+
+MNIST está sobreutilizado. En un hilo de Twitter de abril de 2017, el
+investigador científico de Google Brain y experto en aprendizaje
+profundo, Ian Goodfellow, hizo un llamamiento a los investigadores a
+alejarse del conjunto MNIST.
+
+MNIST no puede representar tareas CV modernas , como se señala en este
+hilo de Twitter de abril de 2017, el experto en aprendizaje
+profundo/autor de Keras, François Chollet.
+
+\begin{verbatim}
+</i></ol>
+\end{verbatim}
+
+Los investigadores introdujeron a Fashion-MNIST como un reemplazo del
+conjunto de datos MNIST. El nuevo conjunto de datos contiene imágenes de
+diversos artículos de ropa, como camisas, zapatos, abrigos y otros
+artículos de moda.
+
+\textless{}img
+src=``https://github.com/zalandoresearch/fashion-mnist/raw/master/doc/img/fashion-mnist-sprite.png'',
+align=``cener''\textgreater{}
+
+El dataset Fashion-MNIST comparte la misma estructura dividida de
+train-test como MNIST. Mientras que en el caso del conjunto de datos
+MNIST las etiquetas de clase eran dígitos del 0-9, Las etiquetas de
+clase para Fashion-MNIST son las siguientes:
+
+Label
+
+Description
+
+0
+
+T-shirt/top
+
+1
+
+Trouser
+
+2
+
+Pullover
+
+3
+
+Dress
+
+4
+
+Coat
+
+5
+
+Sandal
+
+6
+
+Shirt
+
+7
+
+Sneaker
+
+8
+
+Bag
+
+9
+
+Ankle boot
+
+\begin{verbatim}
+</table></p>
+\end{verbatim}
+
+\hypertarget{muxe9todos-supervisados}{%
+\section{Métodos supervisados}\label{muxe9todos-supervisados}}
+
+En esta primera parte de la práctica vamos a trabajar en diferentes
+métodos supervisados aplicados sobre el conjunto de datos
+\href{https://github.com/zalandoresearch/fashion-mnist}{Fashion MNIST} y
+trataremos de optimizar diferentes métricas.
+
+Carga de datos
+
+\(k\) vecinos más cercanos
+
+Support vector machines
+
+Redes neuronales
+
+Optimización de métricas
+
+    \hypertarget{carga-de-datos}{%
+\subsection{Carga de datos}\label{carga-de-datos}}
+
+\hypertarget{descripciuxf3n-del-conjunto-de-datos}{%
+\subsubsection{Descripción del conjunto de
+datos}\label{descripciuxf3n-del-conjunto-de-datos}}
+
+El conjunto de datos Fashion MNIST proporcionado por Zalando consta de
+70.000 imágenes con 10 clases diferentes de ropa repartidas
+uniformemente. No obstante, para esta práctica utilizaremos únicamente
+un subconjunto de 5.000 imágenes que consiste en 1.000 imágenes de 5
+clases diferentes.
+
+Las imágenes tienen una resolución de 28x28 píxeles en escala de grises,
+por lo que se pueden representar utilizando un vector de 784 posiciones.
+
+El siguiente código cargará las 5.000 imágenes en la variable images y
+las correspondientes etiquetas (en forma numérica) en la variable
+labels. Podemos comprobar que la carga ha sido correcta obteniendo las
+dimensiones de estas dos variables.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pickle}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{data.pickle}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rb}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+            \PY{n}{data} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n}{f}\PY{p}{)}
+            
+        \PY{n}{images} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{images}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{labels} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{labels}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{n\PYZus{}classes} \PY{o}{=} \PY{l+m+mi}{5}
+        \PY{n}{labels\PYZus{}text} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{T\PYZhy{}shirt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Trouser}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pullover}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Dress}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Coat}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Dimensiones del vector de imágenes: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{images}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Dimensiones del vector de etiquetas: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{labels}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Dimensiones del vector de imágenes: (5000, 784)
+Dimensiones del vector de etiquetas: (5000,)
+
+    \end{Verbatim}
+
+    Con el siguiente código podemos ver un ejemplo de imagen de cada una de
+las clases. Para ello reajustamos el vector de 784 dimensiones que
+representa cada imagen en una matriz de tamaño 28x28 y la transponemos
+para mostrarla:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        
+        \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{n\PYZus{}classes}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{idxs} \PY{o}{=} \PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{labels} \PY{o}{==} \PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}classes}\PY{p}{)}\PY{p}{]}
+        
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}classes}\PY{p}{)}\PY{p}{:}
+            \PY{n}{k} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{n}{idxs}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+            \PY{n}{ax}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{images}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{28}\PY{p}{,} \PY{l+m+mi}{28}\PY{p}{)}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gray}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{ax}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{labels\PYZus{}text}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{definiciuxf3n-del-conjunto-de-entrenamiento-y-test}{%
+\subsubsection{Definición del conjunto de entrenamiento y
+test}\label{definiciuxf3n-del-conjunto-de-entrenamiento-y-test}}
+
+De las 5.000 imágenes distintas de subset de datos utilizaremos 4.000
+imágenes para entrenar los diferentes modelos y 1.000 imágenes para
+validar los resultados. Con el siguiente código separamos los datos que
+hemos cargado anteriormente en dos conjuntos, train y test, de forma
+estratificada, es decir, en cada uno de los conjuntos las clases
+aparecen en la misma proporción que en el conjunto original.
+
+\hypertarget{utilizaciuxf3n-de-algoritmo-pca-para-reducciuxf3n-dimensiuxf3n-del-dataset}{%
+\subsubsection{Utilización de algoritmo PCA para reducción dimensión del
+dataset}\label{utilizaciuxf3n-de-algoritmo-pca-para-reducciuxf3n-dimensiuxf3n-del-dataset}}
+
+En lugar de trabajar directamente con un vector de 784 dimensiones para
+cada imagen aplicaremos primero el algoritmo PCA para reducir la
+dimensión de los ejemplos a 100. El proceso de entrenamiento de PCA lo
+hacemos con las imágenes de train y luego lo aplicamos también sobre las
+imágenes de test, de forma que no utilizamos ninguna información de las
+imágenes en el conjunto de test para entrenar los modelos.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{decomposition} \PY{k}{import} \PY{n}{PCA}
+        
+        \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{images}\PY{p}{,} \PY{n}{labels}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{2017}\PY{p}{,} \PY{n}{stratify}\PY{o}{=}\PY{n}{labels}\PY{p}{)}
+        
+        \PY{n}{pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{2017}\PY{p}{)}
+        \PY{n}{pca\PYZus{}fit} \PY{o}{=} \PY{n}{pca}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+        \PY{n}{X\PYZus{}train\PYZus{}pca} \PY{o}{=} \PY{n}{pca\PYZus{}fit}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+        \PY{n}{X\PYZus{}test\PYZus{}pca} \PY{o}{=} \PY{n}{pca\PYZus{}fit}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+        
+        \PY{k}{def} \PY{n+nf}{proporcion\PYZus{}etiquetas}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{:}
+            \PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{count} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{return\PYZus{}counts}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+            \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{true\PYZus{}divide}\PY{p}{(}\PY{n}{count}\PY{p}{,} \PY{n}{y}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+            
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Número de imágenes para entrenar: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}pca}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Número de imágenes para test: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}pca}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Proporción de las etiquetas en el conjunto original: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{proporcion\PYZus{}etiquetas}\PY{p}{(}\PY{n}{labels}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Proporción de las etiquetas en el conjunto de entrenamiento: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{proporcion\PYZus{}etiquetas}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Proporción de las etiquetas en el conjunto de test: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{proporcion\PYZus{}etiquetas}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Número de imágenes para entrenar: 4000
+Número de imágenes para test: 1000
+Proporción de las etiquetas en el conjunto original: [0.2 0.2 0.2 0.2 0.2]
+Proporción de las etiquetas en el conjunto de entrenamiento: [0.2 0.2 0.2 0.2 0.2]
+Proporción de las etiquetas en el conjunto de test: [0.2 0.2 0.2 0.2 0.2]
+
+    \end{Verbatim}
+
+    \hypertarget{k-vecinos-muxe1s-cercanos}{%
+\subsection{\texorpdfstring{\(k\) vecinos más
+cercanos}{k vecinos más cercanos}}\label{k-vecinos-muxe1s-cercanos}}
+
+El primer algoritmo que utilizaremos para clasificar las imágenes de
+ropa es el \(k\)-nn. En este paso del análisis del dataset ajustaremos
+dos hiperparámetros del algoritmo:
+
+\(k\): el número de vecinos que se consideran para clasificar un nuevo
+ejemplo. Probaremos con todos los valores entre 1 y 10.
+
+pesos: importancia que se da a cada uno de los vecinos considerados. En
+este caso probaremos dos opciones:
+
+\begin{verbatim}
+<ol>    
+<li>pesos uniformes, donde todos los vecinos se consideran igual</li>
+<li>pesos según distancia, donde los vecinos más cercanos tienen más peso en la clasificación que los vecinos más lejanos.</li>
+</ol>
+\end{verbatim}
+
+Para decidir cuáles son los hiperparámetros óptimos utilizaremos una
+búsqueda de rejilla (grid search), es decir, entrenaremos un modelo para
+cada combinación de hiperparámetros posible y la evaluaremos utilizando
+validación cruzada (cross validation) con 4 particiones estratificadas.
+Posteriormente escogeremos la combinación de hiperparámetros que mejor
+resultados haya dado.
+
+    \hypertarget{cuxe1lculo-hiperparuxe1metros-uxf3ptimos}{%
+\subsubsection{Cálculo hiperparámetros
+óptimos}\label{cuxe1lculo-hiperparuxe1metros-uxf3ptimos}}
+
+Implementación: Calcularemos el valor óptimo de los hiperparámetros
+\(k\) y pesos. Vamos a utilizar los módulos GridSearchCV y
+KNeighborsClassifier de sklearn.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{GridSearchCV}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{neighbors} \PY{k}{import} \PY{n}{KNeighborsClassifier}
+        \PY{k+kn}{from} \PY{n+nn}{time} \PY{k}{import} \PY{n}{time}
+        
+        \PY{n}{clf} \PY{o}{=} \PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{p}{)}
+                    
+        \PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{n\PYZus{}neighbors}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{11}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{weights}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{uniform}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{distance}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{\PYZcb{}}
+        
+        \PY{n}{grid\PYZus{}search} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{clf}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{o}{=}\PY{n}{param\PYZus{}grid}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+        
+        \PY{n}{start} \PY{o}{=} \PY{n}{time}\PY{p}{(}\PY{p}{)}
+        \PY{n}{grid\PYZus{}search}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}pca}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+        \PY{n}{end} \PY{o}{=} \PY{n}{time}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{La búsqueda llevó }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ segundos}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{end} \PY{o}{\PYZhy{}} \PY{n}{start}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{means} \PY{o}{=} \PY{n}{grid\PYZus{}search}\PY{o}{.}\PY{n}{cv\PYZus{}results\PYZus{}}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mean\PYZus{}test\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{stds} \PY{o}{=} \PY{n}{grid\PYZus{}search}\PY{o}{.}\PY{n}{cv\PYZus{}results\PYZus{}}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{std\PYZus{}test\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{params} \PY{o}{=} \PY{n}{grid\PYZus{}search}\PY{o}{.}\PY{n}{cv\PYZus{}results\PYZus{}}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{params}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{ranks} \PY{o}{=} \PY{n}{grid\PYZus{}search}\PY{o}{.}\PY{n}{cv\PYZus{}results\PYZus{}}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rank\PYZus{}test\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{k}{for} \PY{n}{rank}\PY{p}{,} \PY{n}{mean}\PY{p}{,} \PY{n}{std}\PY{p}{,} \PY{n}{pms} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{ranks}\PY{p}{,} \PY{n}{means}\PY{p}{,} \PY{n}{stds}\PY{p}{,} \PY{n}{params}\PY{p}{)}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{) Precisión media: }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{ +/\PYZhy{} }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{ con parámetros }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{rank}\PY{p}{,} \PY{n}{mean}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{std}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{pms}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+La búsqueda llevó 69.53597712516785 segundos
+17) Precisión media: 83.55 +/- 1.32 con parámetros \{'weights': 'uniform', 'n\_neighbors': 1\}
+17) Precisión media: 83.55 +/- 1.32 con parámetros \{'weights': 'distance', 'n\_neighbors': 1\}
+20) Precisión media: 82.53 +/- 1.10 con parámetros \{'weights': 'uniform', 'n\_neighbors': 2\}
+17) Precisión media: 83.55 +/- 1.32 con parámetros \{'weights': 'distance', 'n\_neighbors': 2\}
+15) Precisión media: 85.20 +/- 0.78 con parámetros \{'weights': 'uniform', 'n\_neighbors': 3\}
+13) Precisión media: 85.38 +/- 0.66 con parámetros \{'weights': 'distance', 'n\_neighbors': 3\}
+16) Precisión media: 84.92 +/- 0.78 con parámetros \{'weights': 'uniform', 'n\_neighbors': 4\}
+10) Precisión media: 85.58 +/- 0.61 con parámetros \{'weights': 'distance', 'n\_neighbors': 4\}
+2) Precisión media: 85.95 +/- 0.86 con parámetros \{'weights': 'uniform', 'n\_neighbors': 5\}
+4) Precisión media: 85.90 +/- 0.87 con parámetros \{'weights': 'distance', 'n\_neighbors': 5\}
+12) Precisión media: 85.40 +/- 0.91 con parámetros \{'weights': 'uniform', 'n\_neighbors': 6\}
+1) Precisión media: 86.10 +/- 0.72 con parámetros \{'weights': 'distance', 'n\_neighbors': 6\}
+8) Precisión media: 85.70 +/- 0.63 con parámetros \{'weights': 'uniform', 'n\_neighbors': 7\}
+2) Precisión media: 85.95 +/- 0.82 con parámetros \{'weights': 'distance', 'n\_neighbors': 7\}
+11) Precisión media: 85.55 +/- 1.09 con parámetros \{'weights': 'uniform', 'n\_neighbors': 8\}
+4) Precisión media: 85.90 +/- 0.79 con parámetros \{'weights': 'distance', 'n\_neighbors': 8\}
+13) Precisión media: 85.38 +/- 1.13 con parámetros \{'weights': 'uniform', 'n\_neighbors': 9\}
+6) Precisión media: 85.82 +/- 1.24 con parámetros \{'weights': 'distance', 'n\_neighbors': 9\}
+9) Precisión media: 85.65 +/- 1.01 con parámetros \{'weights': 'uniform', 'n\_neighbors': 10\}
+6) Precisión media: 85.82 +/- 0.93 con parámetros \{'weights': 'distance', 'n\_neighbors': 10\}
+
+    \end{Verbatim}
+
+    Análisis: A partir de los resultados anteriores podemos considerar
+responder de manera sencilla las siguientes cuestiones:
+
+¿Qué parámetros han dado mejores resultados?
+
+\begin{verbatim}
+<li>¿Qué variación hay entre las diferentes combinaciones de parámetros?</li>
+        <li>¿Es significativa la variación entre las diferentes combinaciones?</li>
+            <li>¿Hay algún parámetro que influya más que el otro?</li>
+                <li>¿Era de esperar?</li>
+\end{verbatim}
+
+    Respuesta:
+
+\begin{verbatim}
+<ul>
+\end{verbatim}
+
+La mejor solución es con k = 6 y los pesos calculados con la distancia.
+
+La máxima diferencia ente las precisiones medias es de unos 3.5 puntos
+porcentuales, con desviaciones estandard del orden de 1 punto porcentual
+podemos afirmar que hay opciones claramente mejores que otras.
+
+Para k = 1 los pesos no importan, ya que siempre se clasifican los
+nuevos ejemplos con la clase del vecino más cercano.
+
+Parece que la precisión depende más de k que del tipo de los pesos, aún
+así es interesante notar que en prácticamente todos los casos es mejor
+utilizar pesos con distancias en vez de uniformes, lo cual es lógico
+porque al utilizar las distancias el algoritmo tiene más información.
+
+    \hypertarget{entrenamiento-de-un-modelo-k-nn}{%
+\subsubsection{\texorpdfstring{Entrenamiento de un modelo
+\(k\)-nn}{Entrenamiento de un modelo k-nn}}\label{entrenamiento-de-un-modelo-k-nn}}
+
+Implementación: Ahora procederemos a realizar un entrenamiento de un
+modelo \(k\)-nn con los valores de los hiperparámetros óptimos
+utilizando todo el conjunto \emph{X\_train\_pca} y mostraremos la
+precisión de la predicción del modelo en el conjunto
+\emph{X\_test\_pca}.
+
+    La codificación siguiente realiza el entrenamiento \(k\)-nn, y
+finalmente muestra la precisión del conjunto de test.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Valor óptimo para k: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{grid\PYZus{}search}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{n\PYZus{}neighbors}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Valor óptimo para weights: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{grid\PYZus{}search}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{weights}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{clf} \PY{o}{=} \PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{n}{grid\PYZus{}search}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{n\PYZus{}neighbors}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{weights}\PY{o}{=}\PY{n}{grid\PYZus{}search}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{weights}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}pca}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+        
+        \PY{n}{preds} \PY{o}{=} \PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}pca}\PY{p}{)}
+        
+        \PY{n}{accuracy} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{true\PYZus{}divide}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{preds} \PY{o}{==} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{,} \PY{n}{preds}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Precisión en el conjunto de test: }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{accuracy}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Valor óptimo para k: 6
+Valor óptimo para weights: distance
+Precisión en el conjunto de test: 86.60\%
+
+    \end{Verbatim}
+
+    \hypertarget{la-matriz-de-confusiuxf3n-de-pca}{%
+\subsubsection{La matriz de confusión de
+PCA}\label{la-matriz-de-confusiuxf3n-de-pca}}
+
+Implementación: Finalmente mostramos la matriz de confusión del modelo y
+algunas imágenes que el modelo ha clasificado incorrectamente junto con
+la etiqueta asignada por el modelo y la etiqueta original.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k+kn}{import} \PY{n+nn}{itertools}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{confusion\PYZus{}matrix}
+        
+        \PY{n}{cnf\PYZus{}matrix} \PY{o}{=} \PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{preds}\PY{p}{)}
+        
+        \PY{k}{def} \PY{n+nf}{plot\PYZus{}confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{cm}\PY{p}{,} \PY{n}{classes}\PY{p}{)}\PY{p}{:}
+            \PY{n}{cm} \PY{o}{=} \PY{n}{cm}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{/} \PY{n}{cm}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{newaxis}\PY{p}{]}
+           
+            \PY{n}{cmap}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{Blues}
+        
+            \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{cm}\PY{p}{,} \PY{n}{interpolation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nearest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{cmap}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{p}{)}
+            \PY{n}{tick\PYZus{}marks} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{classes}\PY{p}{)}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{tick\PYZus{}marks}\PY{p}{,} \PY{n}{classes}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{45}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{n}{tick\PYZus{}marks}\PY{p}{,} \PY{n}{classes}\PY{p}{)}
+        
+            \PY{n}{thresh} \PY{o}{=} \PY{n}{cm}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{/} \PY{l+m+mf}{2.}
+            \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{j} \PY{o+ow}{in} \PY{n}{itertools}\PY{o}{.}\PY{n}{product}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{cm}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n+nb}{range}\PY{p}{(}\PY{n}{cm}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{plt}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{n}{j}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{n+nb}{format}\PY{p}{(}\PY{n}{cm}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.2f}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                         \PY{n}{horizontalalignment}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{center}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                         \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}} \PY{k}{if} \PY{n}{cm}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{n}{thresh} \PY{k}{else} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{black}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+            \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{True label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predicted label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{plot\PYZus{}confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{cnf\PYZus{}matrix}\PY{p}{,} \PY{n}{classes}\PY{o}{=}\PY{n}{labels\PYZus{}text}\PY{p}{)}
+        
+        \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{n\PYZus{}classes}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{idxs} \PY{o}{=} \PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{p}{(}\PY{n}{y\PYZus{}test} \PY{o}{==} \PY{n}{i}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{preds} \PY{o}{!=} \PY{n}{i}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}classes}\PY{p}{)}\PY{p}{]}
+        
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}classes}\PY{p}{)}\PY{p}{:}
+            \PY{n}{k} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{n}{idxs}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+            \PY{n}{ax}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{28}\PY{p}{,} \PY{l+m+mi}{28}\PY{p}{)}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gray}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{ax}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GT: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ Pred: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{labels\PYZus{}text}\PY{p}{[}\PY{n}{y\PYZus{}test}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{labels\PYZus{}text}\PY{p}{[}\PY{n}{preds}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Análisis: A la vista de los resultados obtenidos y de la matriz de
+confusión podemos plantearnos responder a las cuestiones:
+
+¿Cómo son los errores?
+
+¿Parecen razonables?
+
+    Respuesta:
+
+\begin{verbatim}
+<ul>
+\end{verbatim}
+
+Es interesante notar que cuando el modelo predice ``Trouser'' casi nunca
+se equivoca: 97\% acierto.
+
+La confusión más grande aparece entre ``Pullover'' y ``Coat'': 18\%
+Pullover y 17\% Coat.
+
+Viendo algunos ejemplos parece razonable que el modelo confunda algunas
+imágenes de ``Pullover'' con ``Coat'' y viceversa. También las
+confusiones entre ``T-shirt'' y ``Pullover'' o ``Dress'' y ``Coat''
+podrían justificarse.\\
+
+    \hypertarget{support-vector-machines}{%
+\subsection{Support Vector Machines}\label{support-vector-machines}}
+
+Como continuación de la práctica, en esta segunda parte clasificaremos
+las imágenes de ropa utilizando el algoritmo SVM con el kernel radial.
+En este caso, en lugar de utilizar una búsqueda de rejilla para ajustar
+los hiperparámetros del algoritmo utilizaremos una búsqueda aleatoria,
+es decir, probaremos combinaciones de parámetros al azar. Los
+hiperparámetros a optimizar son:
+
+C: el valor de penalización de los errores en la clasificación. Marca el
+compromiso entre obtener el hiperplano con el mayor margen posible y
+clasificar el máximo número de ejemplos correctamente. Probaremos
+valores aleatorios distribuidos uniformemente entre 1 y 500.
+
+gamma: coeficiente que multiplica la distancia entre dos puntos en el
+kernel radial. Probaremos valores aleatorios distribuidos uniformemente
+entre 0.001 y 0.1
+
+Igual que en el caso anterior, para validar el rendimiento del algoritmo
+con cada combinación de hiperparámetros utilizaremos validación cruzada
+(cross-validation) con 4 particiones estratificadas.
+
+    \hypertarget{cuxe1lculo-del-valor-uxf3ptimo-de-hiperparuxe1metros}{%
+\subsubsection{Cálculo del valor óptimo de
+hiperparámetros}\label{cuxe1lculo-del-valor-uxf3ptimo-de-hiperparuxe1metros}}
+
+Implementación: En este primer paso calculamos el valor óptimo de los
+hiperparámetros C y gamma utilizando 10 combinaciones de parámetros
+elegidas al azar. Para ello utilizaremos los módulos RandomizedSearchCV
+y svm de sklearn, así como el módulo uniform de scipy.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{RandomizedSearchCV}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{svm}
+        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{uniform} \PY{k}{as} \PY{n}{sp\PYZus{}rand}
+        \PY{k+kn}{from} \PY{n+nn}{time} \PY{k}{import} \PY{n}{time}
+        
+        \PY{n}{clf} \PY{o}{=} \PY{n}{svm}\PY{o}{.}\PY{n}{SVC}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{param\PYZus{}dist} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{sp\PYZus{}rand}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{500}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gamma}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{sp\PYZus{}rand}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mf}{0.001}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{)}\PY{p}{\PYZcb{}}
+        
+        \PY{n}{n\PYZus{}iter\PYZus{}search} \PY{o}{=} \PY{l+m+mi}{10}
+        \PY{n}{random\PYZus{}search} \PY{o}{=} \PY{n}{RandomizedSearchCV}\PY{p}{(}\PY{n}{clf}\PY{p}{,} \PY{n}{param\PYZus{}distributions}\PY{o}{=}\PY{n}{param\PYZus{}dist}\PY{p}{,} \PY{n}{n\PYZus{}iter}\PY{o}{=}\PY{n}{n\PYZus{}iter\PYZus{}search}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+        
+        \PY{n}{start} \PY{o}{=} \PY{n}{time}\PY{p}{(}\PY{p}{)}
+        \PY{n}{random\PYZus{}search}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}pca}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+        \PY{n}{end} \PY{o}{=} \PY{n}{time}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{La búsqueda llevó }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ segundos}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{end} \PY{o}{\PYZhy{}} \PY{n}{start}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{means} \PY{o}{=} \PY{n}{random\PYZus{}search}\PY{o}{.}\PY{n}{cv\PYZus{}results\PYZus{}}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mean\PYZus{}test\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{stds} \PY{o}{=} \PY{n}{random\PYZus{}search}\PY{o}{.}\PY{n}{cv\PYZus{}results\PYZus{}}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{std\PYZus{}test\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{params} \PY{o}{=} \PY{n}{random\PYZus{}search}\PY{o}{.}\PY{n}{cv\PYZus{}results\PYZus{}}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{params}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{ranks} \PY{o}{=} \PY{n}{random\PYZus{}search}\PY{o}{.}\PY{n}{cv\PYZus{}results\PYZus{}}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rank\PYZus{}test\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{k}{for} \PY{n}{rank}\PY{p}{,} \PY{n}{mean}\PY{p}{,} \PY{n}{std}\PY{p}{,} \PY{n}{pms} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{ranks}\PY{p}{,} \PY{n}{means}\PY{p}{,} \PY{n}{stds}\PY{p}{,} \PY{n}{params}\PY{p}{)}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{) Precisión media: }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{ +/\PYZhy{} }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{ con parámetros }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{rank}\PY{p}{,} \PY{n}{mean}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{std}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{pms}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+La búsqueda llevó 85.28187775611877 segundos
+3) Precisión media: 88.25 +/- 1.02 con parámetros \{'gamma': 0.028326801618082466, 'C': 373.6398796032877\}
+3) Precisión media: 88.25 +/- 0.96 con parámetros \{'gamma': 0.028951695071907035, 'C': 498.1848950620731\}
+1) Precisión media: 88.33 +/- 0.83 con parámetros \{'gamma': 0.039490234193371644, 'C': 418.641252041766\}
+9) Precisión media: 86.90 +/- 1.15 con parámetros \{'gamma': 0.09663101891123066, 'C': 29.360277570026902\}
+5) Precisión media: 87.55 +/- 0.98 con parámetros \{'gamma': 0.0778384471203179, 'C': 14.344899456087965\}
+7) Precisión media: 87.20 +/- 1.07 con parámetros \{'gamma': 0.08844792047132262, 'C': 253.54274464256648\}
+8) Precisión media: 86.98 +/- 1.11 con parámetros \{'gamma': 0.09390054773874328, 'C': 329.7318087622196\}
+6) Precisión media: 87.48 +/- 0.94 con parámetros \{'gamma': 0.07708254047265004, 'C': 339.72717676870855\}
+1) Precisión media: 88.33 +/- 0.83 con parámetros \{'gamma': 0.039441400938736826, 'C': 481.5329536683988\}
+10) Precisión media: 86.80 +/- 1.20 con parámetros \{'gamma': 0.006892306444705908, 'C': 100.5374427187879\}
+
+    \end{Verbatim}
+
+    Análisis: A la vista de los resultados obtenidos con la codificación
+previa, podemos proceder a responder las siguientes cuestiones:
+
+¿Qué parámetros han dado mejores resultados?
+
+¿Qué variación hay entre las diferentes combinaciones de parámetros?
+
+¿Es significativa la variación entre las diferentes combinaciones?
+
+¿Hay algún parámetro que influya más que el otro?
+
+    Respuesta:
+
+\begin{verbatim}
+<ul>
+\end{verbatim}
+
+La mejor combinación se da con C = 245 y gamma = 0.034.
+
+Las diferencias en la precisión no son demasiado grandes, por lo que,
+teniendo en cuenta la desviación estandard es difícil afirmar que haya
+combinaciones claramente mejores que otras.
+
+Las mejores soluciones se dan con gamma del orden de 0.03-0.04. Se puede
+ver que en las mejores soluciones el valor de C es bastante variable,
+por lo que podemos deducir que el parámetro gamma tiene mucho más peso,
+lo cual es típico al utilizar el kernel radial.\\
+
+    \hypertarget{modelo-svm}{%
+\subsubsection{Modelo SVM}\label{modelo-svm}}
+
+Implementación: A continuación vamos a proceder a realizar un
+entrenamiento de un modelo SVM con los valores de los hiperparámetros
+óptimos utilizando todo el conjunto \emph{X\_train\_pca} y mostraremos
+la precisión de la predicción del modelo en el conjunto
+\emph{X\_test\_pca}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Valor óptimo para C: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{random\PYZus{}search}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Valor óptimo para gamma: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{random\PYZus{}search}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gamma}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{clf} \PY{o}{=} \PY{n}{svm}\PY{o}{.}\PY{n}{SVC}\PY{p}{(}\PY{n}{C}\PY{o}{=}\PY{n}{random\PYZus{}search}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{gamma}\PY{o}{=}\PY{n}{random\PYZus{}search}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gamma}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}pca}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+        
+        \PY{n}{preds} \PY{o}{=} \PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}pca}\PY{p}{)}
+        
+        \PY{n}{accuracy} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{true\PYZus{}divide}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{preds} \PY{o}{==} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{,} \PY{n}{preds}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Precisión en el conjunto de test: }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{accuracy}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Valor óptimo para C: 418.641252041766
+Valor óptimo para gamma: 0.039490234193371644
+Precisión en el conjunto de test: 87.50\%
+
+    \end{Verbatim}
+
+    \hypertarget{la-matriz-de-confusiuxf3n-de-svm}{%
+\subsubsection{La matriz de confusión de
+SVM}\label{la-matriz-de-confusiuxf3n-de-svm}}
+
+Implementación: Finalmente mostraremos la matriz de confusión del modelo
+y algunas imágenes que el modelo ha clasificado incorrectamente junto
+con la etiqueta asignada por el modelo y la etiqueta original.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{cnf\PYZus{}matrix} \PY{o}{=} \PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{preds}\PY{p}{)}
+        
+        \PY{n}{plot\PYZus{}confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{cnf\PYZus{}matrix}\PY{p}{,} \PY{n}{classes}\PY{o}{=}\PY{n}{labels\PYZus{}text}\PY{p}{)}
+        
+        \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{n\PYZus{}classes}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{idxs} \PY{o}{=} \PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{p}{(}\PY{n}{y\PYZus{}test} \PY{o}{==} \PY{n}{i}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{preds} \PY{o}{!=} \PY{n}{i}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}classes}\PY{p}{)}\PY{p}{]}
+        
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}classes}\PY{p}{)}\PY{p}{:}
+            \PY{n}{k} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{n}{idxs}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+            \PY{n}{ax}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{28}\PY{p}{,} \PY{l+m+mi}{28}\PY{p}{)}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gray}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{ax}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GT: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ Pred: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{labels\PYZus{}text}\PY{p}{[}\PY{n}{y\PYZus{}test}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{labels\PYZus{}text}\PY{p}{[}\PY{n}{preds}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Análisis: A la vista de los resultados obtenidos y de la matriz de
+confusión podemos plantearnos responder a las cuestiones:
+
+¿Cómo son los errores?
+
+¿Parecen razonables?
+
+    Respuesta:
+
+\begin{verbatim}
+<ul>
+\end{verbatim}
+
+Este modelo parece clasificar ligeramente mejor las imágenes con
+``Coat'' y ``Pullover'' que el modelo anterior, pero un poco peor las
+imágenes de ``Dress''.
+
+La mayor confusión para este modelo está también entre ``Pullover'' y
+``Coat'', seguido de la confusión entre ``T-shirt'' y ``Dress''.
+
+En este caso el modelo se equivoca en alguna predicción de ``Trouser'',
+pero tambien es la prenda que mejor clasifica como en el modelo
+anterior.
+
+Viendo algunos ejemplos de errores estos parecen bastante razonables.
+
+    \hypertarget{redes-neuronales}{%
+\subsection{Redes neuronales}\label{redes-neuronales}}
+
+A continuación y como tercera parte de los análisis de métodos
+supervisados, vamos a utilizar una red neuronal para clasificar las
+imágenes de ropa. Utilizaremos también ahora una búsqueda aleatoria para
+ajustar los hiperparámetros de la red neuronal. En particular,
+utilizaremos una red monocapa con 4 salidas (una para cada clase del
+conjunto de datos) entrenada con el método de retropropagación y el
+optimizador SGD. Las neuronas de la capa oculta tendrán como activación
+la función sigmoide. Los hiperparámetros a ajustar en este caso son los
+siguientes:
+
+Número de neuronas de la capa oculta: probaremos valores entre 20 y 200.
+
+Número de épocas de entrenamiento: probaremos valores entre 10 y 50.
+
+Velocidad de aprendizaje (learning rate): probaremos valores entre 0.001
+y 0.2.
+
+El procedimiento para validar el rendimiento del modelo para cada
+combinación de parámetros que se utkilizará será el mismo que ya se ha
+venido utilizando en los casos anteriores: validación cruzada con 4
+particiones generadas de forma estratificada.
+
+    \hypertarget{nuxfamero-uxf3ptimo-de-neuronas}{%
+\subsubsection{Número óptimo de
+neuronas}\label{nuxfamero-uxf3ptimo-de-neuronas}}
+
+Implementación: Como parte fundamental del proceso debemos realizar el
+cálculo del valor óptimo del número de neuronas de la capa oculta, el
+número de épocas de entrenamiento y la velocidad de aprendizaje
+utilizando 10 combinaciones de parámetros elegidas al azar. Para este
+trabajo vamos utilizar los módulos Sequential, Dense y SGD de keras,
+además de uniform y randint de scipy y StratifiedKFold de sklearn.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k+kn}{import} \PY{n+nn}{keras}
+         \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{models} \PY{k}{import} \PY{n}{Sequential}
+         \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers} \PY{k}{import} \PY{n}{Softmax}
+         \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers} \PY{k}{import} \PY{n}{Activation}\PY{p}{,} \PY{n}{Dense}
+         \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{optimizers} \PY{k}{import} \PY{n}{SGD}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{StratifiedKFold}
+         \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{uniform} \PY{k}{as} \PY{n}{sp\PYZus{}rand}
+         \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{randint}
+         \PY{k+kn}{from} \PY{n+nn}{time} \PY{k}{import} \PY{n}{time}
+         
+         \PY{n}{kf} \PY{o}{=} \PY{n}{StratifiedKFold}\PY{p}{(}\PY{n}{n\PYZus{}splits}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+         
+         \PY{n}{n\PYZus{}iter\PYZus{}search} \PY{o}{=} \PY{l+m+mi}{10}
+         \PY{n}{params} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{n\PYZus{}iter\PYZus{}search}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{n\PYZus{}neurons\PYZus{}dist} \PY{o}{=} \PY{n}{randint}\PY{p}{(}\PY{n}{low}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,} \PY{n}{high}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{)}
+         \PY{n}{n\PYZus{}epochs\PYZus{}dist} \PY{o}{=} \PY{n}{randint}\PY{p}{(}\PY{n}{low}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{high}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}
+         \PY{n}{lr\PYZus{}dist} \PY{o}{=} \PY{n}{sp\PYZus{}rand}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mf}{0.001}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{)}
+         
+         \PY{n}{best\PYZus{}it} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+         \PY{n}{max\PYZus{}score} \PY{o}{=} \PY{l+m+mi}{0}
+             
+         \PY{n}{start} \PY{o}{=} \PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}iter\PYZus{}search}\PY{p}{)}\PY{p}{:}
+             \PY{n}{n\PYZus{}neurons} \PY{o}{=} \PY{n}{n\PYZus{}neurons\PYZus{}dist}\PY{o}{.}\PY{n}{rvs}\PY{p}{(}\PY{p}{)}
+             \PY{n}{n\PYZus{}epochs} \PY{o}{=} \PY{n}{n\PYZus{}epochs\PYZus{}dist}\PY{o}{.}\PY{n}{rvs}\PY{p}{(}\PY{p}{)}
+             \PY{n}{lr} \PY{o}{=} \PY{n}{lr\PYZus{}dist}\PY{o}{.}\PY{n}{rvs}\PY{p}{(}\PY{p}{)}
+             
+             \PY{n}{params}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{n\PYZus{}neurons}
+             \PY{n}{params}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{n\PYZus{}epochs}
+             \PY{n}{params}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{n}{lr}
+             
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Prueba }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Número de neuronas: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{; Número de épocas: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{; Velocidad de aprendizaje: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{n\PYZus{}neurons}\PY{p}{,} \PY{n}{n\PYZus{}epochs}\PY{p}{,} \PY{n}{lr}\PY{p}{)}\PY{p}{)}
+         
+             \PY{n}{scores} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+             \PY{n}{j} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{train\PYZus{}index}\PY{p}{,} \PY{n}{test\PYZus{}index} \PY{o+ow}{in} \PY{n}{kf}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}pca}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{X\PYZus{}train\PYZus{}kf}\PY{p}{,} \PY{n}{X\PYZus{}test\PYZus{}kf} \PY{o}{=} \PY{n}{X\PYZus{}train\PYZus{}pca}\PY{p}{[}\PY{n}{train\PYZus{}index}\PY{p}{]}\PY{p}{,} \PY{n}{X\PYZus{}train\PYZus{}pca}\PY{p}{[}\PY{n}{test\PYZus{}index}\PY{p}{]}
+                 \PY{n}{y\PYZus{}train\PYZus{}kf}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}kf} \PY{o}{=} \PY{n}{y\PYZus{}train}\PY{p}{[}\PY{n}{train\PYZus{}index}\PY{p}{]}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{[}\PY{n}{test\PYZus{}index}\PY{p}{]}
+                 
+                 \PY{n}{y\PYZus{}train\PYZus{}kf} \PY{o}{=} \PY{n}{keras}\PY{o}{.}\PY{n}{utils}\PY{o}{.}\PY{n}{to\PYZus{}categorical}\PY{p}{(}\PY{n}{y\PYZus{}train\PYZus{}kf}\PY{p}{,} \PY{n}{num\PYZus{}classes}\PY{o}{=}\PY{n}{n\PYZus{}classes}\PY{p}{)}
+                 \PY{n}{y\PYZus{}test\PYZus{}kf} \PY{o}{=} \PY{n}{keras}\PY{o}{.}\PY{n}{utils}\PY{o}{.}\PY{n}{to\PYZus{}categorical}\PY{p}{(}\PY{n}{y\PYZus{}test\PYZus{}kf}\PY{p}{,} \PY{n}{num\PYZus{}classes}\PY{o}{=}\PY{n}{n\PYZus{}classes}\PY{p}{)}
+         
+                 \PY{n}{model} \PY{o}{=} \PY{n}{Sequential}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{n}{n\PYZus{}neurons}\PY{p}{,} \PY{n}{input\PYZus{}shape}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,}\PY{p}{)}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sigmoid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{n}{n\PYZus{}classes}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{softmax}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+         
+                 \PY{n}{model}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{optimizer}\PY{o}{=}\PY{n}{SGD}\PY{p}{(}\PY{n}{lr}\PY{o}{=}\PY{n}{lr}\PY{p}{)}\PY{p}{,} \PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categorical\PYZus{}crossentropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{metrics}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+                 \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}kf}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}kf}\PY{p}{,} \PY{n}{epochs}\PY{o}{=}\PY{n}{n\PYZus{}epochs}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+                 
+                 \PY{n}{score} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{evaluate}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}kf}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}kf}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+                 \PY{n}{scores}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{score}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                 \PY{n}{j} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                 
+             \PY{n}{score\PYZus{}mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{scores}\PY{p}{)}
+             \PY{n}{score\PYZus{}std} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{scores}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Precisión media: }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{ +/\PYZhy{} }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{score\PYZus{}mean}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{score\PYZus{}std}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+                 
+             \PY{k}{if} \PY{p}{(}\PY{n}{score\PYZus{}mean} \PY{o}{\PYZgt{}} \PY{n}{max\PYZus{}score}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{max\PYZus{}score} \PY{o}{=} \PY{n}{score\PYZus{}mean}
+                 \PY{n}{best\PYZus{}it} \PY{o}{=} \PY{n}{i}
+         
+         \PY{n}{end} \PY{o}{=} \PY{n}{time}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{La búsqueda llevó }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ segundos}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{end} \PY{o}{\PYZhy{}} \PY{n}{start}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Using TensorFlow backend.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Prueba 0
+Número de neuronas: 112; Número de épocas: 17; Velocidad de aprendizaje: 0.06227011358599537
+Precisión media: 85.75 +/- 1.02
+Prueba 1
+Número de neuronas: 41; Número de épocas: 24; Velocidad de aprendizaje: 0.15659340480693826
+Precisión media: 86.83 +/- 1.06
+Prueba 2
+Número de neuronas: 180; Número de épocas: 47; Velocidad de aprendizaje: 0.08986082726614962
+Precisión media: 86.95 +/- 1.10
+Prueba 3
+Número de neuronas: 102; Número de épocas: 25; Velocidad de aprendizaje: 0.10306330361645728
+Precisión media: 86.05 +/- 0.64
+Prueba 4
+Número de neuronas: 171; Número de épocas: 31; Velocidad de aprendizaje: 0.09531607444757116
+Precisión media: 86.28 +/- 1.60
+Prueba 5
+Número de neuronas: 108; Número de épocas: 17; Velocidad de aprendizaje: 0.09936269191534093
+Precisión media: 86.50 +/- 0.88
+Prueba 6
+Número de neuronas: 164; Número de épocas: 40; Velocidad de aprendizaje: 0.058797417656567055
+Precisión media: 86.40 +/- 1.06
+Prueba 7
+Número de neuronas: 159; Número de épocas: 40; Velocidad de aprendizaje: 0.11559052536216151
+Precisión media: 86.53 +/- 0.87
+Prueba 8
+Número de neuronas: 193; Número de épocas: 14; Velocidad de aprendizaje: 0.09444927001195838
+Precisión media: 85.60 +/- 1.03
+Prueba 9
+Número de neuronas: 84; Número de épocas: 18; Velocidad de aprendizaje: 0.14530596825397996
+Precisión media: 86.67 +/- 1.37
+La búsqueda llevó 143.8752293586731 segundos
+
+    \end{Verbatim}
+
+    Análisis: A la vista de los resultados obtenidos con la codificación
+previa, podemos proceder a responder las siguientes cuestiones:
+
+¿Qué parámetros han dado mejores resultados?
+
+¿Qué variación hay entre las diferentes combinaciones de parámetros?
+
+¿Es significativa la variación entre las diferentes combinaciones?
+
+¿Hay algún parámetro que influya más que el otro?
+
+    Respuesta:
+
+\begin{verbatim}
+<ul>
+\end{verbatim}
+
+La mayor precisión se obtiene con 23 neuronas en la capa oculta y
+entrenando 40 épocas con una velocidad de aprendizaje de 0.119.
+
+En este caso podemos ver mayor variabilidad entre las precisiones medias
+para cada combinación por lo que, aun teniendo en cuenta las
+desviaciones estandard podemos afirmar que algunas soluciones son
+mejores que otras.
+
+Con pocas pruebas y las desviaciones estandard altas es difícil extraer
+relaciones claras entre hiperparámetros, pero parece aflorar que las
+velocidades de aprendizaje más bajas dan peores resultados en la
+precisión, lo cual es quiere decir que probablemente se debería haber
+entrenado durante más épocas.
+
+    \hypertarget{nuxfamero-uxf3ptimo-de-neuronas-conjunto-completo}{%
+\subsubsection{Número óptimo de neuronas (conjunto
+completo)}\label{nuxfamero-uxf3ptimo-de-neuronas-conjunto-completo}}
+
+Implementación: Ahora vamos a entrenar una red neuronal con los valores
+de los hiperparámetros óptimos utilizando todo el conjunto
+\emph{X\_train\_pca} y mostraremos la precisión de la predicción del
+modelo en el conjunto \emph{X\_test\_pca}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Número de neuronas óptimo: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{params}\PY{p}{[}\PY{n}{best\PYZus{}it}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Número de épocas óptimo: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{params}\PY{p}{[}\PY{n}{best\PYZus{}it}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Velocidad de aprendizaje óptima: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{params}\PY{p}{[}\PY{n}{best\PYZus{}it}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{model} \PY{o}{=} \PY{n}{Sequential}\PY{p}{(}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{params}\PY{p}{[}\PY{n}{best\PYZus{}it}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{input\PYZus{}shape}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{n}{n\PYZus{}classes}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{softmax}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{model}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{optimizer}\PY{o}{=}\PY{n}{SGD}\PY{p}{(}\PY{n}{lr}\PY{o}{=}\PY{n}{params}\PY{p}{[}\PY{n}{best\PYZus{}it}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categorical\PYZus{}crossentropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{metrics}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}pca}\PY{p}{,} \PY{n}{keras}\PY{o}{.}\PY{n}{utils}\PY{o}{.}\PY{n}{to\PYZus{}categorical}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{num\PYZus{}classes}\PY{o}{=}\PY{n}{n\PYZus{}classes}\PY{p}{)}\PY{p}{,} \PY{n}{epochs}\PY{o}{=}\PY{n+nb}{int}\PY{p}{(}\PY{n}{params}\PY{p}{[}\PY{n}{best\PYZus{}it}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{n}{preds} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}pca}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{n}{accuracy} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{true\PYZus{}divide}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{preds} \PY{o}{==} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{,} \PY{n}{preds}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Precisión en el conjunto de test: }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{accuracy}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Número de neuronas óptimo: 180.0
+Número de épocas óptimo: 47.0
+Velocidad de aprendizaje óptima: 0.08986082726614962
+Precisión en el conjunto de test: 84.30\%
+
+    \end{Verbatim}
+
+    \hypertarget{la-matriz-de-confusiuxf3n-del-modelo}{%
+\subsubsection{La matriz de confusión del
+modelo}\label{la-matriz-de-confusiuxf3n-del-modelo}}
+
+Implementación: Finalmente mostramos la matriz de confusión del modelo y
+algunas imágenes que el modelo ha clasificado incorrectamente junto con
+la etiqueta asignada por el modelo y la etiqueta original.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{cnf\PYZus{}matrix} \PY{o}{=} \PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{preds}\PY{p}{)}
+         
+         \PY{n}{plot\PYZus{}confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{cnf\PYZus{}matrix}\PY{p}{,} \PY{n}{classes}\PY{o}{=}\PY{n}{labels\PYZus{}text}\PY{p}{)}
+         
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{n\PYZus{}classes}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{idxs} \PY{o}{=} \PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{p}{(}\PY{n}{y\PYZus{}test} \PY{o}{==} \PY{n}{i}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{preds} \PY{o}{!=} \PY{n}{i}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}classes}\PY{p}{)}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}classes}\PY{p}{)}\PY{p}{:}
+             \PY{n}{k} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{n}{idxs}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+             \PY{n}{ax}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{28}\PY{p}{,} \PY{l+m+mi}{28}\PY{p}{)}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gray}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{ax}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GT: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ Pred: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{labels\PYZus{}text}\PY{p}{[}\PY{n}{y\PYZus{}test}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{labels\PYZus{}text}\PY{p}{[}\PY{n}{preds}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Análisis: A la vista de los resultados obtenidos y de la matriz de
+confusión podemos plantearnos responder a las cuestiones:
+
+¿Cómo son los errores?
+
+¿Parecen razonables?
+
+    Respuesta:
+
+Este modelo confunde muchas ``T-shirt'' con ``Dress'' y muchos
+``Pullover'' con ``Coat''. Esto por su parte conlleva a la vez que el
+modelo prediga mejor la clase ``Coat'' que los otros modelos.
+
+En el caso de ``Trouser'' lo clasifica con mucha seguridad, pero aún así
+se equivoca ligeramente más que los modelos anteriores.
+
+Viendo algunos ejemplos parece razonable que el modelo confunda algunas
+imágenes de ``T-shirt'' con ``Dress'' y viceversa.\\
+
+    \hypertarget{optimizaciuxf3n-de-muxe9tricas}{%
+\subsection{Optimización de
+métricas}\label{optimizaciuxf3n-de-muxe9tricas}}
+
+En las etapas de análisis anteriores hemos buscado siempre el modelo que
+mejor precisión obtiene en general, pero esto no es siempre los más
+adecuado. Por ejemplo, imaginemos que necesitamos el modelo para una
+empresa que únicamente vende pantalones y está haciendo un estudio sobre
+las imágenes de pantalones que obtiene de Internet. En este escenario,
+imaginemos que la empresa quiere estudiar el máximo número posible de
+imágenes de pantalones, por lo que está muy interesada en que el modelo
+no clasifique erróneamente imágenes de pantalones (asumiendo si es
+necesario que para ello habrá imágenes clasificadas como pantalones que
+en realidad no lo sean).
+
+La misma idea de utilidad del modelo se puede encontrar, aunque con un
+ejemplo más complejo, en
+\href{http://blog.mldb.ai/blog/posts/2016/01/ml-meets-economics/}{este
+enlace}.
+
+    \hypertarget{nueva-funciuxf3n-personalizada-de-coste}{%
+\subsubsection{Nueva función personalizada de
+coste}\label{nueva-funciuxf3n-personalizada-de-coste}}
+
+Implementación: Definimos a continuación una función que, dada la
+predicción del modelo para un conjunto de imágenes y las etiquetas
+reales de los datos, devuelva un coste de forma que los errores de
+clasificar un pantalón como otra prenda tengan el doble de peso que los
+otros errores.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k}{def} \PY{n+nf}{coste}\PY{p}{(}\PY{n}{preds}\PY{p}{,} \PY{n}{labels}\PY{p}{)}\PY{p}{:}
+             \PY{n}{p} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{preds}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{l} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{labels}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{errors} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{p} \PY{o}{!=} \PY{n}{l}\PY{p}{)}
+             \PY{n}{trousers} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{l} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{errors\PYZus{}trousers} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{p}\PY{p}{[}\PY{n}{trousers}\PY{p}{]} \PY{o}{!=} \PY{l+m+mi}{1}\PY{p}{)}
+             
+             \PY{k}{return} \PY{n}{errors} \PY{o}{+} \PY{n}{errors\PYZus{}trousers}
+\end{Verbatim}
+
+
+    \hypertarget{aplicaciuxf3n-al-modelo-de-la-nueva-funciuxf3n-de-coste}{%
+\subsubsection{Aplicación al modelo de la nueva función de
+coste}\label{aplicaciuxf3n-al-modelo-de-la-nueva-funciuxf3n-de-coste}}
+
+Implementación: Utilizamos la función definida anteriormente junto con
+el código de entrenamiento de la red neuronal para optimizar los
+hiperparámetros de la red según la nueva métrica.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{start} \PY{o}{=} \PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}iter\PYZus{}search}\PY{p}{)}\PY{p}{:}
+             \PY{n}{n\PYZus{}neurons} \PY{o}{=} \PY{n}{n\PYZus{}neurons\PYZus{}dist}\PY{o}{.}\PY{n}{rvs}\PY{p}{(}\PY{p}{)}
+             \PY{n}{n\PYZus{}epochs} \PY{o}{=} \PY{n}{n\PYZus{}epochs\PYZus{}dist}\PY{o}{.}\PY{n}{rvs}\PY{p}{(}\PY{p}{)}
+             \PY{n}{lr} \PY{o}{=} \PY{n}{lr\PYZus{}dist}\PY{o}{.}\PY{n}{rvs}\PY{p}{(}\PY{p}{)}
+             
+             \PY{n}{params}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{n\PYZus{}neurons}
+             \PY{n}{params}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{n\PYZus{}epochs}
+             \PY{n}{params}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{n}{lr}
+             
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Prueba }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Número de neuronas: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{; Número de épocas: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{; Velocidad de aprendizaje: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{n\PYZus{}neurons}\PY{p}{,} \PY{n}{n\PYZus{}epochs}\PY{p}{,} \PY{n}{lr}\PY{p}{)}\PY{p}{)}
+         
+             \PY{n}{scores} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+             \PY{n}{j} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{train\PYZus{}index}\PY{p}{,} \PY{n}{test\PYZus{}index} \PY{o+ow}{in} \PY{n}{kf}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}pca}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{X\PYZus{}train\PYZus{}kf}\PY{p}{,} \PY{n}{X\PYZus{}test\PYZus{}kf} \PY{o}{=} \PY{n}{X\PYZus{}train\PYZus{}pca}\PY{p}{[}\PY{n}{train\PYZus{}index}\PY{p}{]}\PY{p}{,} \PY{n}{X\PYZus{}train\PYZus{}pca}\PY{p}{[}\PY{n}{test\PYZus{}index}\PY{p}{]}
+                 \PY{n}{y\PYZus{}train\PYZus{}kf}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}kf} \PY{o}{=} \PY{n}{y\PYZus{}train}\PY{p}{[}\PY{n}{train\PYZus{}index}\PY{p}{]}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{[}\PY{n}{test\PYZus{}index}\PY{p}{]}
+                 
+                 \PY{n}{y\PYZus{}train\PYZus{}kf} \PY{o}{=} \PY{n}{keras}\PY{o}{.}\PY{n}{utils}\PY{o}{.}\PY{n}{to\PYZus{}categorical}\PY{p}{(}\PY{n}{y\PYZus{}train\PYZus{}kf}\PY{p}{,} \PY{n}{num\PYZus{}classes}\PY{o}{=}\PY{n}{n\PYZus{}classes}\PY{p}{)}
+                 \PY{n}{y\PYZus{}test\PYZus{}kf} \PY{o}{=} \PY{n}{keras}\PY{o}{.}\PY{n}{utils}\PY{o}{.}\PY{n}{to\PYZus{}categorical}\PY{p}{(}\PY{n}{y\PYZus{}test\PYZus{}kf}\PY{p}{,} \PY{n}{num\PYZus{}classes}\PY{o}{=}\PY{n}{n\PYZus{}classes}\PY{p}{)}
+         
+                 \PY{n}{model} \PY{o}{=} \PY{n}{Sequential}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{n}{n\PYZus{}neurons}\PY{p}{,} \PY{n}{input\PYZus{}shape}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,}\PY{p}{)}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sigmoid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{n}{n\PYZus{}classes}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{softmax}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         
+                 \PY{n}{model}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{optimizer}\PY{o}{=}\PY{n}{SGD}\PY{p}{(}\PY{n}{lr}\PY{o}{=}\PY{n}{lr}\PY{p}{)}\PY{p}{,} \PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categorical\PYZus{}crossentropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{metrics}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+                 \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}kf}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}kf}\PY{p}{,} \PY{n}{epochs}\PY{o}{=}\PY{n}{n\PYZus{}epochs}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+                 
+                 \PY{n}{preds} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}kf}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+                 
+                 \PY{n}{score} \PY{o}{=} \PY{n}{coste}\PY{p}{(}\PY{n}{preds}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}kf}\PY{p}{)}
+                 
+                 \PY{n}{scores}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{score}
+                 \PY{n}{j} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                 
+             \PY{n}{score\PYZus{}mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{scores}\PY{p}{)}
+             \PY{n}{score\PYZus{}std} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{scores}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Precisión media: }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{ +/\PYZhy{} }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{score\PYZus{}mean}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{score\PYZus{}std}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+                 
+             \PY{k}{if} \PY{p}{(}\PY{n}{score\PYZus{}mean} \PY{o}{\PYZgt{}} \PY{n}{max\PYZus{}score}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{max\PYZus{}score} \PY{o}{=} \PY{n}{score\PYZus{}mean}
+                 \PY{n}{best\PYZus{}it} \PY{o}{=} \PY{n}{i}
+         
+         \PY{n}{end} \PY{o}{=} \PY{n}{time}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{La búsqueda llevó }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ segundos}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{end} \PY{o}{\PYZhy{}} \PY{n}{start}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Prueba 0
+Número de neuronas: 182; Número de épocas: 23; Velocidad de aprendizaje: 0.10833462438168667
+Precisión media: 14450.00 +/- 1213.47
+Prueba 1
+Número de neuronas: 79; Número de épocas: 27; Velocidad de aprendizaje: 0.1619478669035974
+Precisión media: 14575.00 +/- 1488.92
+Prueba 2
+Número de neuronas: 153; Número de épocas: 24; Velocidad de aprendizaje: 0.12265323722077036
+Precisión media: 14775.00 +/- 794.91
+Prueba 3
+Número de neuronas: 186; Número de épocas: 21; Velocidad de aprendizaje: 0.1583979225276578
+Precisión media: 14900.00 +/- 863.13
+Prueba 4
+Número de neuronas: 58; Número de épocas: 43; Velocidad de aprendizaje: 0.1063801229707025
+Precisión media: 13950.00 +/- 887.41
+Prueba 5
+Número de neuronas: 113; Número de épocas: 48; Velocidad de aprendizaje: 0.1576013661346941
+Precisión media: 13725.00 +/- 1188.22
+Prueba 6
+Número de neuronas: 123; Número de épocas: 21; Velocidad de aprendizaje: 0.09144483615365742
+Precisión media: 14825.00 +/- 749.58
+Prueba 7
+Número de neuronas: 123; Número de épocas: 45; Velocidad de aprendizaje: 0.03916805682202471
+Precisión media: 14575.00 +/- 1198.70
+Prueba 8
+Número de neuronas: 56; Número de épocas: 36; Velocidad de aprendizaje: 0.146017521145336
+Precisión media: 13775.00 +/- 1063.90
+Prueba 9
+Número de neuronas: 159; Número de épocas: 29; Velocidad de aprendizaje: 0.0752219505972483
+Precisión media: 14925.00 +/- 1123.33
+La búsqueda llevó 231.61324739456177 segundos
+
+    \end{Verbatim}
+
+    Análisis: La aplicación en el modelo de nuestra nueva función de
+\textbf{coste} permite plantear las preguntas:
+
+¿Han cambiado significativamente los mejores valores de los
+hiperparámetros?
+
+¿Cuál crees que puede ser la razón?
+
+    Respuesta:
+
+Efectivamente, han cambiado significativamente los resultados de la
+prueba.
+
+Los valores óptimos de los hiperparámetros son bastante diferentes.
+
+Aún así, hay valores de hiperparámetros parecidos a los óptimos del
+ejercicio anterior que dan resultados similares a los valores óptimos de
+este problema.
+
+Esto viene dado porque la métrica que estamos utilizando ahora no cambia
+los datos ni el proceso de entrenamiento, si no que nos sirve para
+seleccionar, de entre las soluciones que dan buenos resultados, qué
+solución es la más apropiada en el caso de que los pantalones tengan más
+peso en la métrica.
+
+Al cambiar las metricas estandard `metrics={[}'accuracy'{]} por las
+personalizadas que hemos construido en la función 'coste()', se consigue
+que la red entrene de manera mas eficiente las capas de aprendizaje.
+
+    \hypertarget{combinaciuxf3n-de-clasificadores}{%
+\section{Combinación de
+clasificadores}\label{combinaciuxf3n-de-clasificadores}}
+
+En esta segunda parte del trabajo vamos a trabajar sobre diferentes
+métodos de combinación de clasificadores aplicados sobre el conjunto de
+datos \href{https://github.com/zalandoresearch/fashion-mnist}{Fashion
+MNIST}.
+
+Combinación paralela de clasificadores base similares
+
+Bagging
+
+Random Forest simple
+
+Out-of-bag
+
+Probabilidad por clase
+
+Importancia de las variables
+
+Número de clasificadores
+
+Volumen de datos
+
+\begin{verbatim}
+  </ul>
+\end{verbatim}
+
+Boosting
+
+Combinación secuencial de clasificadores base diferentes
+
+Stacking
+
+Cascading
+
+\begin{verbatim}
+  <ul>
+\end{verbatim}
+
+Cascading simple
+
+Cascading con variables adicionales
+
+\begin{verbatim}
+  </ul>
+</ul>
+\end{verbatim}
+
+    \hypertarget{combinaciuxf3n-paralela-de-clasificadores-base-similares}{%
+\subsection{Combinación paralela de clasificadores base
+similares}\label{combinaciuxf3n-paralela-de-clasificadores-base-similares}}
+
+    \hypertarget{bagging}{%
+\subsubsection{Bagging}\label{bagging}}
+
+    \hypertarget{random-forest-simple}{%
+\paragraph{Random forest simple}\label{random-forest-simple}}
+
+    La idea básica del \emph{bagging} es utilizar el conjunto de
+entrenamiento original para generar centenares o miles de conjuntos
+similares usando muestreo con reemplazo. En este concepto está basado el
+algoritmo \emph{Random Forest}, la combinación de varios árboles de
+decisión, cada uno entrenado con una realización diferente de los datos.
+La decisión final del clasificador combinado (la \emph{Random Forest})
+se toma por mayoría, dando el mismo peso a todas las decisiones
+parciales tomadas por los clasificadores base (los árboles).
+
+    Implementación: Usando los conjuntos \emph{X\_train\_pca} e
+\emph{y\_train\_pca}, entrenamos un modelo \emph{Random Forest} con 100
+árboles de decisión y estimamos la precisión del modelo con una
+estrategia de \emph{cross-validation} en los mismos conjuntos.
+
+Usaremos los módulos \emph{RandomForestClassifier} y
+\emph{cross\_val\_score} de sklearn. Sobre el funcionamiento y
+aplicaciones de \emph{cross validation} y sobre como usar estes módulos,
+los siguientes enlaces son fundamentales:
+
+RandomForestClassifier
+
+CrossValidation
+
+model\_selection.cross\_val\_score
+
+\begin{verbatim}
+</ul>
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{cross\PYZus{}val\PYZus{}score}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{ensemble}
+         \PY{k+kn}{from} \PY{n+nn}{time} \PY{k}{import} \PY{n}{time}
+         
+         \PY{n}{clf} \PY{o}{=} \PY{n}{ensemble}\PY{o}{.}\PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}
+         
+         \PY{n}{cvscores} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{clf}\PY{p}{,} \PY{n}{X\PYZus{}train\PYZus{}pca}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Precisión media obtenida con cross\PYZhy{}validation (CV): }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{ +/\PYZhy{} }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{cvscores}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{cvscores}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Precisión media obtenida con cross-validation (CV): 85.62 +/- 1.85 \%
+
+    \end{Verbatim}
+
+    \hypertarget{out-of-bag}{%
+\paragraph{Out-of-bag}\label{out-of-bag}}
+
+    Una ventaja del \emph{bagging} usado en el \emph{Random Forest} es que
+cada uno de los árboles de decisión ha sido entrenado con una
+combinación diferente de los datos (muestreo con reemplazo), o sea que
+cada uno de los árboles no ha visto una determinada parte de los datos
+originales. Esto define una especie de conjunto de test para cada uno de
+los árboles, llamado \emph{out-of-bag}, que puede ser usado para estimar
+el error del modelo sin necesidad de usar el conjunto de test real que
+creamos previamente, ni de usar estrategias de \emph{cross-validation}.
+
+    Implementación: Usando los conjuntos \emph{X\_train\_pca} e
+\emph{y\_train\_pca}, entrenamos a continuación un modelo Random Forest
+con 100 árboles de decisión. Mostramos la precisión de este modelo en el
+\emph{out-of-bag} y en el conjunto \emph{X\_test\_pca}.
+
+Usamos el módulo \emph{RandomForestClassifier} de sklearn. Como
+referencias sobre \emph{out-of-bag} y sobre como usar este módulo
+(incluyendo el atributo \emph{oob\_score\_}), los siguientes enlaces son
+los que hemos consultado:
+
+RandomForestClassifier
+
+plot\_ensemble\_oob
+
+\begin{verbatim}
+</ul>
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{clf} \PY{o}{=} \PY{n}{ensemble}\PY{o}{.}\PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{oob\PYZus{}score}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{2017}\PY{p}{)}
+         
+         \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}pca}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Precisión de este modelo con uso de Out\PYZhy{}of\PYZhy{}bag: }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{clf}\PY{o}{.}\PY{n}{oob\PYZus{}score\PYZus{}}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{preds\PYZus{}rfc} \PY{o}{=} \PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}pca}\PY{p}{)}
+         \PY{n}{accuracy} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{true\PYZus{}divide}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{preds\PYZus{}rfc} \PY{o}{==} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{,} \PY{n}{preds\PYZus{}rfc}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Precisión en el conjunto de test: }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{accuracy}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Precisión de este modelo con uso de Out-of-bag: 84.95 \%
+Precisión en el conjunto de test: 85.10\%
+
+    \end{Verbatim}
+
+    Análisis: A la vista de los resutlados obtenidos:
+
+La precisión obtenida en el \emph{out-of-bag} y en el conjunto de test
+¿son comparables?
+
+¿Era de esperar?
+
+    Respuesta:
+
+La precisión medida con el uso de `out-of-bag' y la obtenida en el
+conjunto de test son muy parecidas (aprox. una diferencia de 0,15).
+
+Este resultado era de esperar porque:
+
+la estimación del error con el out-of-bag es un método robusto y nos da
+el error del modelo en el conjunto de datos X\_train\_pca
+
+el error en el conjunto de datos de test X\_test\_pca es muy parecido
+porque X\_test\_pca tiene la misma estructura (fue creado con separación
+aleatoria estratificada) que el conjunto de datos de entrenamiento
+X\_train\_pca
+
+    \hypertarget{probabilidad-por-clase}{%
+\paragraph{Probabilidad por clase}\label{probabilidad-por-clase}}
+
+    Otra ventaja del \emph{bagging} usado en el \emph{Random Forest} es que
+cada uno de los árboles de decisión, entrenado con una combinación
+diferente de los datos, puede obtener un resultado diferente. En los
+problemas de clasificación, el resultado de cada árbol se considera como
+un voto diferente, y la predicción final del modelo es la clase que haya
+obtenido más votos teniendo en cuenta todos los árboles.
+
+Estos votos individuales de los árboles también se pueden usar para
+estimar la probabilidad con la que el modelo prevé cada una de las
+clases, siendo la probabilidad para cada clase igual al número de votos
+obtenidos para aquella clase dividido entre el número de árboles.
+
+    Implementación: Para cada clase (etiqueta), muestra un ejemplo de imágen
+que el modelo haya clasificado incorrectamente junto con la etiqueta
+asignada por el modelo y la etiqueta original. Muestra también las
+probabilidades que el modelo ha atribuído a cada clase para estas
+imágenes.
+
+Vamos a uar el modelo que entrenado en el paso anterior con el módulo
+\emph{RandomForestClassifier} de sklearn y las previsiones que
+calculasmos para el conjunto de datos de test. Para mostrar las
+imágenes, usaremos el código proporcionado en la carga de datos
+original. Sobre el módulo \emph{RandomForestClassifier} de sklearn
+(incluyendo el método \emph{predict\_proba}), el siguiente enlace es el
+que hemos consultado:
+
+RandomForestClassifier
+
+\begin{verbatim}
+</ul>
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+         
+         \PY{c+c1}{\PYZsh{} Obtenemos los índices de la primera imagen mal identificada para cada clase:}
+         \PY{n}{idxs} \PY{o}{=} \PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{p}{(}\PY{n}{y\PYZus{}test} \PY{o}{==} \PY{n}{i}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{preds\PYZus{}rfc} \PY{o}{!=} \PY{n}{i}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}classes}\PY{p}{)}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} Mostramos las imágenes junto con las etiquetas actuales y previstas:}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{n\PYZus{}classes}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}classes}\PY{p}{)}\PY{p}{:}
+             \PY{n}{k} \PY{o}{=} \PY{n}{idxs}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+             \PY{n}{ax}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{28}\PY{p}{,} \PY{l+m+mi}{28}\PY{p}{)}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gray}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{ax}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Imagen n: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Actual: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ Pred: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{k}\PY{p}{,} \PY{n}{labels\PYZus{}text}\PY{p}{[}\PY{n}{y\PYZus{}test}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{labels\PYZus{}text}\PY{p}{[}\PY{n}{preds\PYZus{}rfc}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_65_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} Calculamos las probabilidades de cada clase para cada imagen:}
+         \PY{n}{probs\PYZus{}rfc} \PY{o}{=} \PY{n}{clf}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}pca}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Mostramos las probabilidades junto con la clase prevista (probabilidad més alta) y la real}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Etiquetas: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{labels\PYZus{}text}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}classes}\PY{p}{)}\PY{p}{:}
+             \PY{n}{k} \PY{o}{=} \PY{n}{idxs}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Probabilidades imagen }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{:}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{; Actual: }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{; Pred: }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{k}\PY{p}{,} \PY{n}{probs\PYZus{}rfc}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{,} \PY{n}{labels\PYZus{}text}\PY{p}{[}\PY{n}{y\PYZus{}test}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{labels\PYZus{}text}\PY{p}{[}\PY{n}{preds\PYZus{}rfc}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Adicional: calculamos cuantas veces la segunda clase con más probabilidad era la correcta:}
+         \PY{n}{n\PYZus{}max\PYZus{}prob\PYZus{}correct} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{n}{n\PYZus{}2nd\PYZus{}max\PYZus{}prob\PYZus{}correct} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{y\PYZus{}test}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{==} \PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{probs\PYZus{}rfc}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{n\PYZus{}max\PYZus{}prob\PYZus{}correct} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+             \PY{k}{elif} \PY{n}{y\PYZus{}test}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{==} \PY{n}{probs\PYZus{}rfc}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{argsort}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{:}
+                 \PY{n}{n\PYZus{}2nd\PYZus{}max\PYZus{}prob\PYZus{}correct} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Cuantas veces el modelo acertó? (precisión): }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{De las veces que no acertó, cuantas veces la segunda clase más votada era la correcta?: }\PY{l+s+si}{\PYZob{}:.1f\PYZcb{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}} \PYZbs{}
+               \PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n+nb}{float}\PY{p}{(}\PY{n}{n\PYZus{}max\PYZus{}prob\PYZus{}correct}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,} 
+                       \PY{n+nb}{float}\PY{p}{(}\PY{n}{n\PYZus{}2nd\PYZus{}max\PYZus{}prob\PYZus{}correct}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{n\PYZus{}max\PYZus{}prob\PYZus{}correct}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Etiquetas: 			['T-shirt', 'Trouser', 'Pullover', 'Dress', 'Coat']
+Probabilidades imagen 13:	[0.24 0.06 0.35 0.2  0.15]; Actual: 'T-shirt'; Pred: 'Pullover'
+Probabilidades imagen 140:	[0.1  0.3  0.07 0.41 0.12]; Actual: 'Trouser'; Pred: 'Dress'
+Probabilidades imagen 25:	[0.02 0.05 0.38 0.08 0.47]; Actual: 'Pullover'; Pred: 'Coat'
+Probabilidades imagen 68:	[0.28 0.32 0.12 0.14 0.14]; Actual: 'Dress'; Pred: 'Trouser'
+Probabilidades imagen 21:	[0.03 0.04 0.21 0.4  0.32]; Actual: 'Coat'; Pred: 'Dress'
+
+Cuantas veces el modelo acertó? (precisión): 85.1\%
+De las veces que no acertó, cuantas veces la segunda clase más votada era la correcta?: 79.2\%
+
+    \end{Verbatim}
+
+    Análisis: En estos casos en los que el modelo se equivocó, ¿estaba cerca
+de prever la etiqueta correcta?
+
+    Respuesta: Sí, aunque el modelo se equivocó, ha estado siempre muy cerca
+(relativamente) de obtener el resultado correcto. En 4 de los 5 casos
+analizados, la segunda clase con una probabilidad más alta era la
+correcta. Esta proporción se mantiene en todo el conjunto de datos de
+test.
+
+    \hypertarget{importancia-de-las-variables}{%
+\paragraph{Importancia de las
+variables}\label{importancia-de-las-variables}}
+
+    Otra ventaja del algoritmo \emph{Random Forest} es que permite medir la
+importancia relativa de cada variable, gracias a que cada uno de los
+árboles fue entrenado con un subconjunto diferente de las variables
+originales.
+
+En el problema de clasificación de imágenes analizado aquí, la
+importancia de las variables nos permite saber cuáles son generalmente
+los píxeles más importantes par poder clasificar la imágen.
+
+    Implementación: Vamos a proceder a realizar el entrenamiento de un
+clasificador \emph{Random Forest} con el conjunto de datos de
+entrenamiento original \emph{X\_train}, en los que cada variable es la
+intensidad de cada píxel (en vez de ser las variables PCA que usamos
+anteriormente). Mostraremos cuáles son las 10 variables más importantes.
+También presentamos un gráfico en el que se visualizará que zonas de una
+imagen son más importantes para el clasificador.
+
+Usaremos el módulo \emph{RandomForestClassifier} de sklearn para
+calcular la importancia de las variables. Para representar gráficamente
+la importancia de cada píxel de la imagen, usaremos el código
+proporcionado en la carga de datos original. Sobre el módulo
+\emph{RandomForestClassifier} de sklearn (incluyendo el método
+\emph{feature\_importances\_}), el siguiente enlace es el que hemos
+consultado:
+
+RandomForestClassifier
+
+\begin{verbatim}
+</ul>
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} Entrenamos el clasificador con datos originales, sin PCA, para que cada variable sea la intensidad de cada píxel:}
+         \PY{n}{clf} \PY{o}{=} \PY{n}{ensemble}\PY{o}{.}\PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{80}\PY{p}{)}
+         \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} cálculamos la importancia de las variables y representación gráfica de las top 10:}
+         \PY{n}{importances} \PY{o}{=} \PY{n}{clf}\PY{o}{.}\PY{n}{feature\PYZus{}importances\PYZus{}}
+         \PY{n}{topN} \PY{o}{=} \PY{l+m+mi}{10}
+         \PY{n}{indices} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argsort}\PY{p}{(}\PY{n}{importances}\PY{p}{)}
+         \PY{n}{n\PYZus{}feats} \PY{o}{=} \PY{n+nb}{min}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{importances}\PY{p}{)}\PY{p}{,} \PY{n}{topN}\PY{p}{)}
+         \PY{n}{labels} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)} \PY{c+c1}{\PYZsh{} nombres de las variables, en este caso número del píxel}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Variables más importantes (número del píxel)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{barh}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}feats}\PY{p}{)}\PY{p}{,} \PY{n}{importances}\PY{p}{[}\PY{n}{indices}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{n}{n\PYZus{}feats}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}feats}\PY{p}{)}\PY{p}{,} \PY{n}{labels}\PY{p}{[}\PY{n}{indices}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{n}{n\PYZus{}feats}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{n\PYZus{}feats}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} representación gráfica de la importancia de cada píxel:}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Importancia de cada píxel en el clasificador}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{importances}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{28}\PY{p}{,} \PY{l+m+mi}{28}\PY{p}{)}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gray}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_72_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_72_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Análisis: A la vista del resultado obteniso podemos plantearnos si nos
+parece plausible el resultado que hemos obtenido. ¿Porqué lo creemos
+así?
+
+    Respuesta: En el gráfico con la `Importancia de cada píxel en el
+clasificador' vemos que hay una zona vertical central que es la más
+importante, así como una especie de numero ocho difuso alrededor. Parece
+muy razonable ya que la línea central permite diferenciar los
+pantalones, mientras que la zona importante alrededor está situada
+aproximadamente para localizar el contorno de las diferentes prendas de
+vestir.
+
+    \hypertarget{nuxfamero-de-clasificadores}{%
+\paragraph{Número de clasificadores}\label{nuxfamero-de-clasificadores}}
+
+    En los pasos anteriores hemos combinado 100 clasificadores simples en
+nuestro clasificador combinado. ¿Será posible que la precisión del
+clasificador combinado aumenta indefinidamente su desempeño si añadimos
+más clasificadores?
+
+Para responder a esta pregunta vamos a representar una curva de
+validación. La curva de validación es una representación gráfica del
+desempeño de un modelo variando uno de sus parámetros. Mientras que la
+búsqueda de rejilla nos permite encontrar la combinación de parámetros
+que da mejores resultados, la curva de validación nos permite entender
+cuál es el impacto de un determinado parámetro en el desempeño de un
+modelo.
+
+    Implementación: Entrenamos varios modelos de \emph{Random Forest} con un
+número de árboles cada vez mayor. Para cada modelo, calcularemos su
+precisón en el conjunto de test o usando \emph{cross-validation} en el
+conjunto de entrenamiento. Adicional: Tambien vamos a representar
+gráficamente la evolución de la precisión con el número de árboles para
+ayudarnos en el posterior análisis de los resultados.
+
+Usaremos el módulo \emph{validation\_curve} de sklearn. Los siguientes
+enlaces son los que hemos consultado para poder realizar esta parte del
+análisis:
+
+model\_selection.validation\_curve
+
+validation-curve
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{validation\PYZus{}curve}
+         
+         \PY{n}{param\PYZus{}range} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{logspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{3.2}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{int}\PY{p}{)}
+         \PY{n}{param\PYZus{}name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{n\PYZus{}estimators}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{train\PYZus{}scores}\PY{p}{,} \PY{n}{test\PYZus{}scores} \PY{o}{=} \PY{n}{validation\PYZus{}curve}\PY{p}{(}
+              \PY{n}{ensemble}\PY{o}{.}\PY{n}{RandomForestClassifier}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{X\PYZus{}train\PYZus{}pca}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,}
+              \PY{n}{param\PYZus{}name}\PY{o}{=}\PY{n}{param\PYZus{}name}\PY{p}{,} \PY{n}{param\PYZus{}range}\PY{o}{=}\PY{n}{param\PYZus{}range}\PY{p}{,}
+              \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{accuracy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{train\PYZus{}scores\PYZus{}mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{train\PYZus{}scores}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{train\PYZus{}scores\PYZus{}std} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{train\PYZus{}scores}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{test\PYZus{}scores\PYZus{}mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{test\PYZus{}scores}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{test\PYZus{}scores\PYZus{}std} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{test\PYZus{}scores}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Curva de validación}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{n}{param\PYZus{}name}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{1.1}\PY{p}{)}
+         \PY{n}{lw} \PY{o}{=} \PY{l+m+mi}{2}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{semilogx}\PY{p}{(}\PY{n}{param\PYZus{}range}\PY{p}{,} \PY{n}{train\PYZus{}scores\PYZus{}mean}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Score de entrenamiento (training)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                      \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{darkorange}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{n}{lw}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{fill\PYZus{}between}\PY{p}{(}\PY{n}{param\PYZus{}range}\PY{p}{,} \PY{n}{train\PYZus{}scores\PYZus{}mean} \PY{o}{\PYZhy{}} \PY{n}{train\PYZus{}scores\PYZus{}std}\PY{p}{,}
+                          \PY{n}{train\PYZus{}scores\PYZus{}mean} \PY{o}{+} \PY{n}{train\PYZus{}scores\PYZus{}std}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,}
+                          \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{darkorange}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{n}{lw}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{semilogx}\PY{p}{(}\PY{n}{param\PYZus{}range}\PY{p}{,} \PY{n}{test\PYZus{}scores\PYZus{}mean}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cross\PYZhy{}validation score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                      \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{navy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{n}{lw}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{fill\PYZus{}between}\PY{p}{(}\PY{n}{param\PYZus{}range}\PY{p}{,} \PY{n}{test\PYZus{}scores\PYZus{}mean} \PY{o}{\PYZhy{}} \PY{n}{test\PYZus{}scores\PYZus{}std}\PY{p}{,}
+                          \PY{n}{test\PYZus{}scores\PYZus{}mean} \PY{o}{+} \PY{n}{test\PYZus{}scores\PYZus{}std}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,}
+                          \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{navy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{n}{lw}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{best}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_78_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Análisis: A la vista del gráfico anterior, ¿podemos decir que se
+incrementa indefinidamente la precisión con el número de árboles
+combinados? Si satura, ¿lo hace a la precisión máxima o a otro valor?
+¿Porqué?
+
+    Respuesta: La precisión no aumenta indefinidamente con el número de
+árboles combinados, sino que se satura a un valor alrededor del 85\%.
+Añadir más árboles sólo es útil cuando estos añaden información nueva,
+porque han sido entrenados con datos distintos que permiten al algoritmo
+mejorar las decisiones tomadas. La parcialidad de un clasificador, por
+falta de riqueza en los datos o falta de atributos esenciales, no puede
+ser totalmente solucionada añadiendo nuevos clasificadores parciales.
+
+    \hypertarget{volumen-de-datos}{%
+\paragraph{Volumen de datos}\label{volumen-de-datos}}
+
+    Podemos pensar que entrenando el modelo con más datos (más imágenes) ¿el
+modelo aprendería a clasificar con mejor precisión? Es muy útil intentar
+responder a esta pregunta antes de lanzarse a conseguir más datos, ya
+que este puede ser un proceso difícil, caro, o que implique esperar
+mucho tiempo.
+
+Para responder a esta pregunta, analizaremos cómo evoluciona la
+precisión del modelo en los conjuntos de entrenamiento y test para
+diferentes volúmenes de datos de creciente tamaño. Representar los
+resultados en una curva de aprendizaje (\emph{learning curve}) nos
+permitirá analizar visualmente estas cantidades.
+
+    Implementación: Entrenamos varios modelos de \emph{Random Forest} con un
+volumen de datos cada vez mayor. Para cada modelo, calcularemos su
+precisón en el conjunto de entrenamiento y de test, y representaremos
+los resultados en un gráfico.
+
+Usaremos el módulo \emph{learning\_curve} de sklearn. Hemos consultado
+los siguientes enlaces para su utilización:
+
+learning-curve
+
+model\_selection.learning\_curve
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{learning\PYZus{}curve}
+         
+         \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{Esta función corresponde con la original de la fuente:}
+         \PY{l+s+sd}{https://scikit\PYZhy{}learn.org/stable/auto\PYZus{}examples/model\PYZus{}selection/plot\PYZus{}learning\PYZus{}curve.html }
+         
+         \PY{l+s+sd}{Se han hecho variaciones en el código original}
+         
+         \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+         \PY{k}{def} \PY{n+nf}{plot\PYZus{}learning\PYZus{}curve}\PY{p}{(}\PY{n}{estimator}\PY{p}{,} \PY{n}{title}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{ylim}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,}
+                                 \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{train\PYZus{}sizes}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Generate a simple plot of the test and training learning curve.}
+         
+         \PY{l+s+sd}{    Parameters}
+         \PY{l+s+sd}{    \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{    estimator : object type that implements the \PYZdq{}fit\PYZdq{} and \PYZdq{}predict\PYZdq{} methods}
+         \PY{l+s+sd}{        An object of that type which is cloned for each validation.}
+         
+         \PY{l+s+sd}{    title : string}
+         \PY{l+s+sd}{        Title for the chart.}
+         
+         \PY{l+s+sd}{    X : array\PYZhy{}like, shape (n\PYZus{}samples, n\PYZus{}features)}
+         \PY{l+s+sd}{        Training vector, where n\PYZus{}samples is the number of samples and}
+         \PY{l+s+sd}{        n\PYZus{}features is the number of features.}
+         
+         \PY{l+s+sd}{    y : array\PYZhy{}like, shape (n\PYZus{}samples) or (n\PYZus{}samples, n\PYZus{}features), optional}
+         \PY{l+s+sd}{        Target relative to X for classification or regression;}
+         \PY{l+s+sd}{        None for unsupervised learning.}
+         
+         \PY{l+s+sd}{    ylim : tuple, shape (ymin, ymax), optional}
+         \PY{l+s+sd}{        Defines minimum and maximum yvalues plotted.}
+         
+         \PY{l+s+sd}{    cv : int, cross\PYZhy{}validation generator or an iterable, optional}
+         \PY{l+s+sd}{        Determines the cross\PYZhy{}validation splitting strategy.}
+         \PY{l+s+sd}{        Possible inputs for cv are:}
+         \PY{l+s+sd}{          \PYZhy{} None, to use the default 3\PYZhy{}fold cross\PYZhy{}validation,}
+         \PY{l+s+sd}{          \PYZhy{} integer, to specify the number of folds.}
+         \PY{l+s+sd}{          \PYZhy{} An object to be used as a cross\PYZhy{}validation generator.}
+         \PY{l+s+sd}{          \PYZhy{} An iterable yielding train/test splits.}
+         
+         \PY{l+s+sd}{        For integer/None inputs, if ``y`` is binary or multiclass,}
+         \PY{l+s+sd}{        :class:`StratifiedKFold` used. If the estimator is not a classifier}
+         \PY{l+s+sd}{        or if ``y`` is neither binary nor multiclass, :class:`KFold` is used.}
+         
+         \PY{l+s+sd}{        Refer :ref:`User Guide \PYZlt{}cross\PYZus{}validation\PYZgt{}` for the various}
+         \PY{l+s+sd}{        cross\PYZhy{}validators that can be used here.}
+         
+         \PY{l+s+sd}{    n\PYZus{}jobs : integer, optional}
+         \PY{l+s+sd}{        Number of jobs to run in parallel (default 1).}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{title}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} Las siguientes 2 lineas del código original no se usarán:}
+             \PY{c+c1}{\PYZsh{} if ylim is not None:}
+             \PY{c+c1}{\PYZsh{}    plt.ylim(*ylim)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training examples}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{train\PYZus{}sizes}\PY{p}{,} \PY{n}{train\PYZus{}scores}\PY{p}{,} \PY{n}{test\PYZus{}scores} \PY{o}{=} \PY{n}{learning\PYZus{}curve}\PY{p}{(}
+                 \PY{n}{estimator}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{n}{cv}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{n}{n\PYZus{}jobs}\PY{p}{,} \PY{n}{train\PYZus{}sizes}\PY{o}{=}\PY{n}{train\PYZus{}sizes}\PY{p}{)}
+             \PY{n}{train\PYZus{}scores\PYZus{}mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{train\PYZus{}scores}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{train\PYZus{}scores\PYZus{}std} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{train\PYZus{}scores}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{test\PYZus{}scores\PYZus{}mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{test\PYZus{}scores}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{test\PYZus{}scores\PYZus{}std} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{test\PYZus{}scores}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{p}{)}
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{fill\PYZus{}between}\PY{p}{(}\PY{n}{train\PYZus{}sizes}\PY{p}{,} \PY{n}{train\PYZus{}scores\PYZus{}mean} \PY{o}{\PYZhy{}} \PY{n}{train\PYZus{}scores\PYZus{}std}\PY{p}{,}
+                              \PY{n}{train\PYZus{}scores\PYZus{}mean} \PY{o}{+} \PY{n}{train\PYZus{}scores\PYZus{}std}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,}
+                              \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{r}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{fill\PYZus{}between}\PY{p}{(}\PY{n}{train\PYZus{}sizes}\PY{p}{,} \PY{n}{test\PYZus{}scores\PYZus{}mean} \PY{o}{\PYZhy{}} \PY{n}{test\PYZus{}scores\PYZus{}std}\PY{p}{,}
+                              \PY{n}{test\PYZus{}scores\PYZus{}mean} \PY{o}{+} \PY{n}{test\PYZus{}scores\PYZus{}std}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{train\PYZus{}sizes}\PY{p}{,} \PY{n}{train\PYZus{}scores\PYZus{}mean}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{r}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                      \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{train\PYZus{}sizes}\PY{p}{,} \PY{n}{test\PYZus{}scores\PYZus{}mean}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                      \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{best}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{k}{return} \PY{n}{plt}
+         
+         \PY{n}{plot\PYZus{}learning\PYZus{}curve}\PY{p}{(}\PY{n}{ensemble}\PY{o}{.}\PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}\PY{p}{,} 
+                             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Learning curve}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                             \PY{n}{X\PYZus{}train\PYZus{}pca}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} 
+                             \PY{n}{cv} \PY{o}{=} \PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:} <module 'matplotlib.pyplot' from 'f:\textbackslash{}\textbackslash{}Users\textbackslash{}\textbackslash{}Ricardo\textbackslash{}\textbackslash{}Anaconda3\textbackslash{}\textbackslash{}envs\textbackslash{}\textbackslash{}my\_py35\textbackslash{}\textbackslash{}lib\textbackslash{}\textbackslash{}site-packages\textbackslash{}\textbackslash{}matplotlib\textbackslash{}\textbackslash{}pyplot.py'>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_84_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Análisis: A la vista del resultado, si obtuviésemos más datos de
+entrenamiento (más imágenes clasificadas) ¿mejoraría el modelo? ¿Porqué
+sí o porqué no?
+
+    Respuesta: En el gráfico vemos que la precisión del modelo en el
+conjunto de datos de entrenamiento es la máxima posible, por lo que el
+modelo consigue clasificar perfectamente esas imágenes. Sin embargo, la
+precisión en el conjunto de test está muy por debajo. Esto nos muestra
+que el modelo no generaliza suficientemente la lógica de clasificación
+de las imágenes, sino que esta lógica es demasiado específica del
+conjunto usado para entrenar el modelo. Este problema se conoce como
+\emph{overfitting} y podría ser solucionado añadiendo más datos (más
+imágenes clasificadas). Por otro lado, en el gráfico también vemos que
+la precisión en el conjunto de test aumenta al aumentar el volumen de
+datos (aunque cada vez más lentamente, se comporta de manera asintótica
+hacia el valor 0.85), por lo que esperamos que la precisión continúe en
+aumento si tuviésemos más imágenes.
+
+    \hypertarget{boosting}{%
+\subsubsection{Boosting}\label{boosting}}
+
+    En el sistema de \emph{Boosting} se combinan varios clasificadores
+débiles sequencialmente, y en cada uno de ellos se da más peso a los
+datos que han sido erróneamente clasificados en las combinaciones
+anteriores, para que se concentre así en los casos más difíciles de
+resolver.
+
+    Implementación: Usando el conjunto \emph{X\_train\_pca}, procederemos a
+entrenar un modelo \emph{Gradient Boosting} y estimaremos la precisión
+del modelo con una estrategia de \emph{cross-validation} en los mismos
+conjuntos. Seguidamente calcularemos las previsiones del modelo en el
+conjunto \emph{X\_test\_pca} y su precisión en este conjunto.
+
+Usaremos los módulos \emph{GradientBoostingClassifier} y
+\emph{cross\_val\_score} de sklearn. El siguiente enlace ha sido el
+consultgado pra realizar este proceso:
+
+GradientBoostingClassifier
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{clf} \PY{o}{=} \PY{n}{ensemble}\PY{o}{.}\PY{n}{GradientBoostingClassifier}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{cvscores} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{clf}\PY{p}{,} \PY{n}{X\PYZus{}train\PYZus{}pca}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Precisión media obtenida con CV: }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{ +/\PYZhy{} }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{cvscores}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{cvscores}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}pca}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         
+         \PY{n}{preds\PYZus{}gbc} \PY{o}{=} \PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}pca}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Calcular las probabilidades de cada clase para cada imagen:}
+         \PY{n}{probs\PYZus{}gbc} \PY{o}{=} \PY{n}{clf}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}pca}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Precisión media obtenida con CV: 86.15 +/- 1.72 \%
+
+    \end{Verbatim}
+
+    Análisis: El boosting se basa en la combinación de clasificadores
+débiles. En la implementación que hemos utilizado en este ejercicio,
+¿cuál es la profundidad de los árboles utilizados? Si la comparamos con
+la que ya utilizamos en los árboles de decisión del ejercicio de
+\emph{bagging}, ¿qué podemos resolver?.
+
+    Respuesta: Por defecto en la implementación de sklearn se impone un
+límite de 3 niveles de profundidad en los árboles usados para el
+`boosting', mientras que para el `bagging' usamos árboles sin límite de
+profundidad.
+
+    \hypertarget{combinaciuxf3n-secuencial-de-clasificadores-base-diferentes}{%
+\subsection{Combinación secuencial de clasificadores base
+diferentes}\label{combinaciuxf3n-secuencial-de-clasificadores-base-diferentes}}
+
+    \hypertarget{stacking}{%
+\subsubsection{Stacking}\label{stacking}}
+
+    Un clasificador de \emph{stacking} usa como atributos las predicciones
+hechas por otros clasificadores en lugar de los datos originales de
+entrada.
+
+    Para construir nuestro clasificador de \emph{stacking} vamos a usar las
+predicciones hechas en el conjunto de test por los clasificadores: -
+utilizados en los ejercicios anteriores - K-Nearest neighbors Classifier
+(knc), Support Vector Machines Classifier (svmc) y Neural Network
+Classifier (nnc) - Discriminant Analysis (dac)
+
+los dos últimos ya los tenemos generados y guardados en archivos
+adjuntos. Estas predicciones las vamos a cargar con el siguiente código:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{} carga de predicciones calculadas en la prueba PEC3:}
+         \PY{n}{preds\PYZus{}knc} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{preds\PYZus{}knc.pickle}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{preds\PYZus{}svmc} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{preds\PYZus{}svmc.pickle}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{preds\PYZus{}nnc} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{preds\PYZus{}nnc.pickle}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} carga de las predicciones por un modelo de Discriminant Analysis:}
+         \PY{n}{preds\PYZus{}dac} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{preds\PYZus{}dac.pickle}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    Implementación: Tenemso la intención de construir un clasificador de
+\emph{stacking} usando una \emph{Random Forest} que use como atributos a
+las predicciones hechas en el conjunto de test por los algoritmos k-nn,
+SVM, red neuronal y Gradient Boosting. Calcularemos la precisión del
+modelo resultante con \emph{cross-validation} en el conjunto de test.
+
+Usaremos las funciones column\_stack de \emph{numpy} y
+\emph{OneHotEncoder} de sklearn para preparar los datos. Para aprender a
+usar estas funciones hemos utilizado los siguientes enlaces:
+
+numpy.column\_stack
+
+OneHotEncoder
+
+encoding-categorical-features
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{} Juntamos las predicciones de los distintos clasificadores:}
+         \PY{n}{X\PYZus{}test\PYZus{}stacking} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{column\PYZus{}stack}\PY{p}{(}\PY{p}{(}\PY{n}{preds\PYZus{}rfc}\PY{p}{,} \PY{n}{preds\PYZus{}gbc}\PY{p}{,} \PY{n}{preds\PYZus{}knc}\PY{p}{,} \PY{n}{preds\PYZus{}svmc}\PY{p}{,} \PY{n}{preds\PYZus{}nnc}\PY{p}{,} \PY{n}{preds\PYZus{}dac}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Dimensiones de la matriz con las predicciones de todos los clasificadores: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}stacking}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Transformamos las variables categóricas (son todas) con OneHotEncoder:}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{OneHotEncoder}
+         \PY{n}{enc} \PY{o}{=} \PY{n}{OneHotEncoder}\PY{p}{(}\PY{n}{categories}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{auto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{enc}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}stacking}\PY{p}{)}  
+         \PY{n}{X\PYZus{}test\PYZus{}stacking} \PY{o}{=} \PY{n}{enc}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}stacking}\PY{p}{)}\PY{o}{.}\PY{n}{toarray}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Dimensiones de la matriz para entrenar el clasificador de stacking: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}stacking}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Calculamos la precisión de un RandomForestClassifier con estas variables usando CV:}
+         \PY{n}{clf} \PY{o}{=} \PY{n}{ensemble}\PY{o}{.}\PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{cvscores} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{clf}\PY{p}{,} \PY{n}{X\PYZus{}test\PYZus{}stacking}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Precisión media obtenida con CV: }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{ +/\PYZhy{} }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{cvscores}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{cvscores}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Dimensiones de la matriz con las predicciones de todos los clasificadores: (1000, 6)
+Dimensiones de la matriz para entrenar el clasificador de stacking: (1000, 30)
+Precisión media obtenida con CV: 88.60 +/- 1.46 \%
+
+    \end{Verbatim}
+
+    Análisis: A la vista del resultado, ¿realmente hemos conseguido mejorar
+la precisión gracias al \emph{stacking}? ¿Cuál es el motivo?.
+
+    Respuesta: La precisión obtenida gracias al `stacking' es ligeramente
+superior a la obtenida con el mejor modelo anterior, gradient boosting.
+Aunque las desviaciones de las precisiones medias con CV son del mismo
+orden que la mejora obtenida, repitiendo el cálculo para diferentes
+`seeds' nos da resultados consistentes en los que el `stacking' es
+siempre ligeramente superior.
+
+    \hypertarget{cascading}{%
+\subsubsection{Cascading}\label{cascading}}
+
+    \hypertarget{cascading-simple}{%
+\paragraph{Cascading simple}\label{cascading-simple}}
+
+    El caso de \emph{cascading} es parecido al de \emph{stacking} pero
+utilizando no solamente las predicciones parciales de los clasificadores
+base, sino también los datos originales.
+
+    Implementación: Construiremos en este caso un clasificador de
+\emph{cascading} usando una \emph{Random Forest} que use como atributos
+a las predicciones hechas en el conjunto de test por los algoritmos
+k-nn, SVM, red neuronal y Gradient Boosting, así como también las
+variables originales. Calcularemos en ese punto la precisión del modelo
+resultante con \emph{cross-validation} en el conjunto de test.
+
+Vamos a usar el mismo conjunto de datos que en el paso previo pero
+añadiéndole el conjunto de test original \emph{X\_test\_pca}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{} Juntamos las predicciones de los distintos clasificadores y las variables originales:}
+         \PY{n}{X\PYZus{}test\PYZus{}cascading} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{column\PYZus{}stack}\PY{p}{(}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}pca}\PY{p}{,} \PY{n}{X\PYZus{}test\PYZus{}stacking}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Dimensiones de la matriz: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}cascading}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Calculamos la precisión de un RandomForestClassifier con estas variables usando CV:}
+         \PY{n}{clf} \PY{o}{=} \PY{n}{ensemble}\PY{o}{.}\PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{cvscores} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{clf}\PY{p}{,} \PY{n}{X\PYZus{}test\PYZus{}cascading}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Precisión media obtenida con CV: }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{ +/\PYZhy{} }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{cvscores}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{cvscores}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Dimensiones de la matriz: (1000, 130)
+Precisión media obtenida con CV: 88.20 +/- 1.36 \%
+
+    \end{Verbatim}
+
+    Análisis: Con esta acción, ¿hemos conseguido mejorar la precisión
+gracias al \emph{cascading}? ¿Porqué?.
+
+    Respuesta: La precisión obtenida gracias al `cascading' es equivalente o
+ligerísimamente superior a la obtenida con `stacking'. Las desviaciones
+de las precisiones medias con CV son superiores a mejora obtenida.
+Repitiendo el cálculo para diferentes `seeds' vemos que el `cascading'
+es consistentemente superior, pero el margen es muy pequeño.
+
+    \hypertarget{cascading-con-variables-adicionales}{%
+\paragraph{Cascading con variables
+adicionales}\label{cascading-con-variables-adicionales}}
+
+    En el \emph{cascading} también podemos añadir como variables del modelo
+a datos adicionales que se hayan podido generar durante la toma de
+decisiones de los clasificadores que combinamos.
+
+    Implementación: ¿Qué datos adicionales de los modelos anteriores
+podríamos usar para enriquecer al modelo? Construiremos un clasificador
+de \emph{cascading} usando una \emph{Random Forest} que gestione como
+atributos los usados en el paso anterior más otros que obtendremos de
+algunos de los clasificadores utilizados en otros de los pasos previos
+ya ejecutados de análisis. Finalmente, calcularemos la precisión del
+modelo resultante con \emph{cross-validation} en el conjunto de test.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{} Cargamos datos:}
+         \PY{n}{probs\PYZus{}knc} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{probs\PYZus{}knc.pickle}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{probs\PYZus{}svmc} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{probs\PYZus{}svmc.pickle}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{probs\PYZus{}dac} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{probs\PYZus{}dac.pickle}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Juntamos las predicciones de los distintos clasificadores incluyendo las probabilidades en cada clase:}
+         \PY{n}{X\PYZus{}test\PYZus{}cascading} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{column\PYZus{}stack}\PY{p}{(}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}pca}\PY{p}{,} \PY{n}{probs\PYZus{}rfc}\PY{p}{,} \PY{n}{probs\PYZus{}gbc}\PY{p}{,} \PY{n}{probs\PYZus{}knc}\PY{p}{,} \PY{n}{probs\PYZus{}svmc}\PY{p}{,} \PY{n}{probs\PYZus{}dac}\PY{p}{,} \PY{n}{X\PYZus{}test\PYZus{}stacking}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Dimensiones de la matriz: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}cascading}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Calculamos la precisión de un RandomForestClassifier con estas variables usando CV:}
+         \PY{n}{clf} \PY{o}{=} \PY{n}{ensemble}\PY{o}{.}\PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{cvscores} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{clf}\PY{p}{,} \PY{n}{X\PYZus{}test\PYZus{}cascading}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Precisión media obtenida con CV: }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{ +/\PYZhy{} }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{cvscores}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{cvscores}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Dimensiones de la matriz: (1000, 155)
+Precisión media obtenida con CV: 89.20 +/- 2.01 \%
+
+    \end{Verbatim}
+
+    Análisis: ¿Hemos conseguido mejorar la precisión gracias a añadir datos
+adicionales al \emph{stacking}? ¿Porqué?.
+
+    Respuesta: Hemos añadido las probabilidades de cada clase predichas por
+cada uno de los modelos como datos adicionales. La precisión obtenida
+`stacking' es ligeramente superior a la obtenida anteriormente, aunque
+esta mejora está dentro de las desviaciones de las precisiones medias
+con CV. Los datos adicionados aportan nueva información al modelo, que
+ahora conoce con qué probabilidad fue prevista cada clase anteriormente,
+por lo que no nos sorprende que el modelo haya mejorado muy ligeramente.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
